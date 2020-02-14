@@ -2,15 +2,33 @@ import React from "react";
 import BasicLayout from "@layouts/BasicLayout";
 import CommonMenu from "@components/GlobalMenu";
 import GlobalHeader from '@components/GlobalHeader';
-import IndexPage from '@pages/Dashboard/index';
+import NotFoundPage from '@components/NotFoundPage';
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from "react-router-dom";
+import Login from '@pages/Login';
+
+// TODO: 请求接口生成（路由）和（乾坤配置文件）
+// TODO: 404重定向和登录重定向
+// TODO: 权限组件的完成
 
 
 const MainApp: React.FunctionComponent = () => (
-  <BasicLayout
-    menu={<CommonMenu />}
-    header={<GlobalHeader />}
-    content={<IndexPage />}
-  />
+  <Router>
+    <Switch>
+      <Route path="/login" component={Login}/>
+      <Route path='/404' component={NotFoundPage} />
+      <Route path="/">
+        <BasicLayout
+          menu={<CommonMenu />}
+          header={<GlobalHeader />}
+        />
+      </Route>
+    </Switch>
+  </Router>
 );
 
 export default MainApp;

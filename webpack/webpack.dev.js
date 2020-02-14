@@ -54,7 +54,8 @@ module.exports = () => {
     devServer: {
       contentBase: path.join(__dirname, "dist"),
       compress: true,
-      port: 8888
+      port: 8888,
+      historyApiFallback: true,
     },
     plugins: [
       new HtmlWebpackPlugin({
