@@ -2,9 +2,9 @@ import React from "react";
 import './BasicLayout.less';
 
 interface BasicLayoutProps {
-    menu: React.ReactNode;
-    header: React.ReactNode;
-    content: React.ReactNode;
+    menu: JSX.Element;
+    header: JSX.Element;
+    content: JSX.Element;
 }
 
 const BasicLayout: React.FC<BasicLayoutProps> = (props) => {

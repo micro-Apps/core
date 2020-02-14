@@ -2,11 +2,11 @@ import React from "react";
 import ReactDom from "react-dom";
 
 export interface Micro {
-    appContent: string,
-    loading: boolean,
+    appContent: string;
+    loading: boolean;
 }
 
-export interface renderMicroApp {
+export interface RenderMicroApp {
     (params: Micro): void;
 }
 
@@ -15,8 +15,8 @@ const Loading: React.FunctionComponent = () => (
 );
 
 const ContainerApp: React.FunctionComponent<{
-    loading: boolean,
-    appContent: string,
+    loading: boolean;
+    appContent: string;
 }> = (props) => {
     const { loading, appContent } = props;
 
@@ -29,7 +29,7 @@ const ContainerApp: React.FunctionComponent<{
  * 
  * @param params 需要加载的子应用内容
  */
-export const renderMicroApp: renderMicroApp =  function (params) {
+export const renderMicroApp: RenderMicroApp =  function (params) {
     const { appContent, loading } = params;
     const targetElement:Element = document.getElementById('container');
     ReactDom.render(<ContainerApp loading={loading} appContent={appContent} />, targetElement);

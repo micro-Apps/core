@@ -1,4 +1,4 @@
-import React from "React";
+import React from "react";
 import { Menu, Icon } from "antd";
 import { MainMenu, SubMenu, SubMenuOption } from './menuConfig.interface';
 
@@ -152,7 +152,7 @@ const MenuLogo: React.FC = () => (
 )
 
 
-export default function CommonMenu(): React.ReactNode {
+export default function CommonMenu(): React.ReactElement {
     const MainMenu = config;
     const SubMenu = config.subMenu;
 

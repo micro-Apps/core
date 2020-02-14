@@ -3,7 +3,7 @@ import { Menu, Icon } from "antd";
 
 const { SubMenu } = Menu;
 
-const MainApp: React.FunctionComponent = () => {
+const MainApp: React.FC = () => {
     const handleClick = useCallback(() => {
         console.log('a');
     }, []);
