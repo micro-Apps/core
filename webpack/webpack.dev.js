@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = () => {
   const options = {
@@ -48,11 +49,7 @@ module.exports = () => {
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
-      alias: {
-        '@components': path.resolve(__dirname, './src/components'),
-        '@assets': path.resolve(__dirname, './src/assets'),
-        '@layouts': path.resolve(__dirname, './src/layouts')
-      }
+      plugins: [new TsconfigPathsPlugin()]
     },
     devServer: {
       contentBase: path.join(__dirname, "dist"),

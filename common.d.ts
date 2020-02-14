@@ -1,4 +1,5 @@
 declare module "*.less";
+declare module "*.png";
 
 declare module "@loadable/component" {
     export default loadable;
