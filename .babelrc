@@ -1,0 +1,16 @@
+{  
+  "presets": [
+    "@babel/typescript",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    ["import", {
+      "libraryName": "antd",
+      "libraryDirectory": "es",
+      "style": "css"
+    }],
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
+    "@babel/plugin-syntax-dynamic-import" // Babel won’t do any additional transformations，webpack can bundle them as a code split
+  ]
+}
