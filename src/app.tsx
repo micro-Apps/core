@@ -3,6 +3,7 @@ import BasicLayout from "@layouts/BasicLayout";
 import CommonMenu from "@components/GlobalMenu";
 import GlobalHeader from '@components/GlobalHeader';
 import NotFoundPage from '@components/NotFoundPage';
+import Authorized from "@components/Authorized";
 
 import {
   BrowserRouter as Router,
@@ -22,10 +23,12 @@ const MainApp: React.FunctionComponent = () => (
       <Route path="/login" component={Login}/>
       <Route path='/404' component={NotFoundPage} />
       <Route path="/">
-        <BasicLayout
-          menu={<CommonMenu />}
-          header={<GlobalHeader />}
-        />
+        <Authorized author={["admin"]}>
+          <BasicLayout
+            menu={<CommonMenu />}
+            header={<GlobalHeader />}
+          />
+        </Authorized>
       </Route>
     </Switch>
   </Router>
