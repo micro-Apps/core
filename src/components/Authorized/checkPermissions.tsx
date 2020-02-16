@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { debug } from 'webpack';
 
 export const USER_INFO_KEY = 'user_info';
 interface UserInfo {
