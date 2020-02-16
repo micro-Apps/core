@@ -1,4 +1,4 @@
-import { MicroMainMenu } from './loadMicroApp/microConfig.interface';
+import { MicroMainMenu } from './loadMicroApp/micro.config.interface';
 
 /**
  * 路由配置项

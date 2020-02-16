@@ -1,4 +1,4 @@
-import { MicroConfig, MicroMainMenu } from "./microConfig.interface";
+import { MicroConfig, MicroMainMenu } from "./micro.config.interface";
 import { MainMenu } from "@components/GlobalMenu/menuConfig.interface";
 import { MicroAppProp } from 'qiankun';
 import { renderMicroApp } from  './render';

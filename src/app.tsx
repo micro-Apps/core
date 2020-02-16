@@ -15,7 +15,6 @@ import {
 } from "react-router-dom";
 
 // TODO: 404重定向
-// TODO: 请求接口生成（路由）和（乾坤配置文件）
 // TODO: 权限组件完成
 
 const MainApp: React.FunctionComponent<{
