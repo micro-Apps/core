@@ -8,7 +8,6 @@ import { GlobalConfig } from './router.config.interface';
 import ReactDOM from 'react-dom';
 import { LoadableLogin } from '@pages/loadable';
 
-
 import {
   BrowserRouter as Router,
   Route,
