@@ -5,7 +5,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = () => {
   const options = {
-    entry: './src/bootstrap.tsx',
+    entry: './src/bootstrap.ts',
     devtool: 'inline-source-map',
     output: {
       path: path.resolve(__dirname, 'dist'),

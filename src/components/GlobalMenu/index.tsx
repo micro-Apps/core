@@ -3,27 +3,8 @@ import { Menu, Icon } from "antd";
 import { MainMenu, SubMenu, SubMenuOption } from './menuConfig.interface';
 
 import './index.less';
-const SubMenuComponent = Menu.SubMenu;
 
-const config: MainMenu = {
-    defaultSelectedKeys: ['1'],
-    defaultOpenKeys: ['sub1'],
-    mode: 'inline',
-    subMenu: [
-        {
-            iconType: 'mail',
-            title: '测试1',
-            key: 'sub1',
-            options: [{
-                title: 'option1',
-                key: '1',
-            }, {
-                title: 'option2',
-                key: '2',
-            }]
-        }
-    ]
-};
+const SubMenuComponent = Menu.SubMenu;
 
 const CreateSubMenuOptions = (config?: SubMenuOption[]): React.ReactNode[] => {
     if (!config) return null;
@@ -55,10 +36,13 @@ const MenuLogo: React.FC = () => (
     </div>
 )
 
-
-export default function CommonMenu(): React.ReactElement {
-    const MainMenu = config;
-    const SubMenu = config.subMenu;
+const CommonMenu: React.FC<{
+    menuConfig: MainMenu;
+    logo: string; // 品牌logo
+    name: string; // 系统名称
+}> = (props) => {
+    const { menuConfig } = props;
+    const SubMenu = menuConfig.subMenu;
 
     return (
         <div className="menu-container">
@@ -66,8 +50,8 @@ export default function CommonMenu(): React.ReactElement {
                 <MenuLogo />
                 <Menu
                     style={{ width: 256 }}
-                    defaultSelectedKeys={MainMenu.defaultOpenKeys}
-                    defaultOpenKeys={MainMenu.defaultOpenKeys}
+                    defaultSelectedKeys={menuConfig.defaultOpenKeys}
+                    defaultOpenKeys={menuConfig.defaultOpenKeys}
                     mode="inline"
                     theme="dark"
                 >
@@ -77,4 +61,5 @@ export default function CommonMenu(): React.ReactElement {
         </div>
 
     )
-}
+};
+export default CommonMenu;

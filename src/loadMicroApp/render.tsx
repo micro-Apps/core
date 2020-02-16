@@ -11,7 +11,7 @@ export interface RenderMicroApp {
 }
 
 const Loading: React.FunctionComponent = () => (
-    <div>加载中</div>
+    <div>加载中...</div>
 );
 
 const ContainerApp: React.FunctionComponent<{
@@ -20,10 +20,14 @@ const ContainerApp: React.FunctionComponent<{
 }> = (props) => {
     const { loading, appContent } = props;
 
-    return loading ? <Loading />: (
-        <div dangerouslySetInnerHTML={{ __html: appContent }} />
+    return (
+        <>
+            {loading ? <Loading /> : null}
+            <div dangerouslySetInnerHTML={{ __html: appContent }} />
+        </>
+
     )
-};
+}
 
 /**
  * 
@@ -31,6 +35,6 @@ const ContainerApp: React.FunctionComponent<{
  */
 export const renderMicroApp: RenderMicroApp =  function (params) {
     const { appContent, loading } = params;
-    const targetElement:Element = document.getElementById('container');
+    const targetElement: Element = document.getElementById('content');
     ReactDom.render(<ContainerApp loading={loading} appContent={appContent} />, targetElement);
 }
