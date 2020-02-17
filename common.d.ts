@@ -8,21 +8,18 @@ declare module "@loadable/component" {
 }
 
 declare module "qiankun" {
-    type renderParams = {
+    interface RenderParams {
         appContent: string;
         loading: boolean;
-    };
-    
+    }
     export interface MicroAppProp {
         name: string;
         entry: string;
-        render: (params: renderParams) => void;
+        render: (params: RenderParams) => void;
         activeRule: (params: any) => boolean;
     }
     
-    interface EffectFunction {
-        (app: string): any;
-    }
+    type EffectFunction = (app: string) => any;
     
     interface RegisterMicroAppsConfig {
         beforeLoad: EffectFunction[];
