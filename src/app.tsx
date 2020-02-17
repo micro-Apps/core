@@ -14,9 +14,7 @@ import {
   Switch,
 } from "react-router-dom";
 
-// TODO: 404重定向
 // TODO: 权限组件完成
-
 
 const MainApp: React.FunctionComponent<{
   globalConfig: GlobalConfig;

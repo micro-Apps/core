@@ -66,7 +66,7 @@ function getCurrentSelectKeysAndDefaultOpenKey(menuConfig: MainMenu): SelectKeys
         if (currentMenuOptionsKey) { break }
     }
 
-    // TODO: 路由对应错误处理
+    // TODO: 路由对应错误处理 404
 
     return {
         defaultOpenKeys: [currentSubMenuKey],
