@@ -4,10 +4,8 @@ module.exports = {
         "es6": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/eslint-recommended"
+        'alloy',
+        'alloy/typescript'
     ],
     "globals": {
         "Atomics": "readonly",

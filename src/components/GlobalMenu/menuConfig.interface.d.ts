@@ -1,6 +1,4 @@
 export interface MainMenu {
-    defaultSelectedKeys: string[];
-    defaultOpenKeys: string[];
     mode: string;
     subMenu: SubMenu[];
 }
@@ -15,4 +13,11 @@ export interface SubMenu {
 export interface SubMenuOption {
     title: string;
     key: string;
+    config: SubMenuOptionConfig;
+}
+
+export interface SubMenuOptionConfig {
+    name: string; // 名称
+    entry: string; // 远程地址
+    path: string; // 路由
 }

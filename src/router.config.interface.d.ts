@@ -1,4 +1,4 @@
-import { MicroMainMenu } from './loadMicroApp/micro.config.interface';
+import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
 
 /**
  * 路由配置项
@@ -6,5 +6,5 @@ import { MicroMainMenu } from './loadMicroApp/micro.config.interface';
 export interface GlobalConfig {
     name: string;
     logo: string;
-    menu: MicroMainMenu;
+    menu: MainMenu;
 }

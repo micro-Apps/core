@@ -17,6 +17,7 @@ import {
 // TODO: 404重定向
 // TODO: 权限组件完成
 
+
 const MainApp: React.FunctionComponent<{
   globalConfig: GlobalConfig;
 }> = ({ globalConfig: { menu, logo, name } }) => (
@@ -39,6 +40,6 @@ const MainApp: React.FunctionComponent<{
 export function bootstrapMainApp(globalConfig: GlobalConfig): void {
   const mainContainer: Element = document.getElementById('main');
   ReactDOM.render(<MainApp globalConfig={globalConfig} />, mainContainer);
-} 
+}
 
 export default MainApp;
