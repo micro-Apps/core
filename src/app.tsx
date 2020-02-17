@@ -4,9 +4,9 @@ import CommonMenu from "@components/GlobalMenu";
 import GlobalHeader from '@components/GlobalHeader';
 import NotFoundPage from '@components/NotFoundPage';
 import Authorized from "@components/Authorized";
-import { GlobalConfig } from './router.config.interface';
 import ReactDOM from 'react-dom';
 import { LoadableLogin } from '@pages/loadable';
+import { GlobalConfig } from './global.config.interface';
 
 import {
   BrowserRouter as Router,
