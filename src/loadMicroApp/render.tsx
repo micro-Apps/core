@@ -6,9 +6,7 @@ export interface Micro {
     loading: boolean;
 }
 
-export interface RenderMicroApp {
-    (params: Micro): void;
-}
+export type RenderMicroApp = (params: Micro) => void;
 
 const Loading: React.FunctionComponent = () => (
     <div>加载中...</div>

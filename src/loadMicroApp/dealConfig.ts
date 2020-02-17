@@ -10,7 +10,6 @@ export function  getMicroAppsConfig(menuConfig: MainMenu): SubMenuOptionConfig[]
     return result;
 }
 
-
 export function getRegisterMicroApps(menuConfig: MainMenu): MicroAppProp[] {
     const config = getMicroAppsConfig(menuConfig);
     const result: MicroAppProp[] = config.map(currentPageConfig => ({
