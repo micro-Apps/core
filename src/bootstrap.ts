@@ -1,4 +1,4 @@
-import { bootstrapMainApp } from "./app";
+import { bootstrapMainApp } from "./appLoad";
 import registeredMicroApps from "./loadMicroApp/registerMicroApps";
 import { GlobalConfig } from './global.config.interface';
 

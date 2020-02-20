@@ -98,7 +98,6 @@ const CommonMenu: React.FC<{
                 </Menu>
             </div>
         </div>
-
     )
 };
 
