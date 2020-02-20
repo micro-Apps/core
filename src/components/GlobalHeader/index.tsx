@@ -1,11 +1,17 @@
 import React from "react";
+import UserAvatar from './UserAvatar';
 
-import './index.less';
+import './styles/index.less';
 
-export default function GlobalHeader(): React.ReactElement {
+type GlobalHeader = React.FC;
+
+const GlobalHeader: GlobalHeader = function GlobalHeader() {
+    const name = 'Genluo';
     return (
         <div className="global-header-container">
-            头部
+            <UserAvatar name={name}/>
         </div>
     )
 }
+
+export default GlobalHeader;
