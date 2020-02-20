@@ -1,6 +1,8 @@
-import { bootstrapMainApp } from "./appLoad";
 import registeredMicroApps from "./loadMicroApp/registerMicroApps";
 import { GlobalConfig } from './global.config.interface';
+import loadable from '@loadable/component';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 const globalConfig: GlobalConfig = {
     name: '星巴克新零售管理系统',
@@ -32,6 +34,21 @@ const globalConfig: GlobalConfig = {
             }
         ]
     }
+}
+
+/**
+ * {
+ *  fallback: <PageLoading />
+ *  }
+ * 如果APP内容过大需要懒加载
+ */
+const MainApp: React.FC<{
+    globalConfig: GlobalConfig;
+}> = loadable(() => import('./app'));
+
+function bootstrapMainApp(globalConfig: GlobalConfig): void {
+    const mainContainer: Element = document.getElementById('main');
+    ReactDOM.render(<MainApp globalConfig={globalConfig} />, mainContainer);
 }
 
 function bootstrap(): void {
