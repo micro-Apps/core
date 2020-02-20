@@ -4,10 +4,8 @@ import CommonMenu, { CommonBread } from "@components/GlobalMenu";
 import GlobalHeader from '@components/GlobalHeader';
 import NotFoundPage from '@components/NotFoundPage';
 import Authorized from "@components/Authorized";
-import { LoadableLogin } from '@pages/loadable';
+import LoginPage from '@pages/Login';
 import { GlobalConfig } from './global.config.interface';
-
-LoadableLogin.preload(); // 预加载登录页面
 
 import {
   BrowserRouter as Router,
@@ -20,7 +18,7 @@ const MainApp: React.FunctionComponent<{
 }> = ({ globalConfig: { menu, logo, name } }) => (
   <Router>
     <Switch>
-      <Route path="/login" component={LoadableLogin}/>
+      <Route path="/login" component={LoginPage}/>
       <Route path='/404' component={NotFoundPage} />
       <Route path="/">
         <Authorized author={["admin"]}>

@@ -8,7 +8,7 @@ import PageLoading from '@components/PageLoading/loading';
  * {
  *  fallback: <PageLoading />
  *  }
- * 如果需要懒加载
+ * 如果APP内容过大需要懒加载
  */
 const MainApp: React.FC<{
     globalConfig: GlobalConfig;
