@@ -20,7 +20,7 @@ const UserAvatarOptions = () => {
 const Notification: React.FC = () => {
     return (
         <div className="notification-container">
-            <Badge dot><Icon type="notification" style={{fontSize: '20px'}} /></Badge>
+            <Badge dot><Icon type="notification" style={{fontSize: '15px'}} /></Badge>
         </div>
     )
 };
@@ -28,7 +28,7 @@ const Notification: React.FC = () => {
 const Help: React.FC = () => {
     return (
         <div className="help-container">
-            <Icon type="question-circle" style={{fontSize: '20px'}}/>
+            <Icon type="question-circle" style={{fontSize: '15px'}}/>
         </div>
     )
 }
@@ -60,7 +60,6 @@ const UserAvatar: React.FC<{
             <UserAvatarContainer>
                 <div className="userAvatar-container">
                     <i className="userAvatar-avatar"><Avatar size="default">G</Avatar></i>
-                    <span className="userAvatar-name">{name}</span>
                 </div>
             </UserAvatarContainer>
         </>
