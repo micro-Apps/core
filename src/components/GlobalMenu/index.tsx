@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { Menu, Icon } from "antd";
 import { SubMenu, SubMenuOption } from './menuConfig.interface';
 import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
 import { genActiveRule } from "../../loadMicroApp/activeRule";
-import './index.less';
+import './styles/index.less';
 
 const SubMenuComponent = Menu.SubMenu;
 
@@ -66,7 +66,7 @@ function getCurrentSelectKeysAndDefaultOpenKey(menuConfig: MainMenu): SelectKeys
         if (currentMenuOptionsKey) { break }
     }
 
-    // TODO: 路由对应错误处理 404
+    // TODO: 路由对应错误处理 
 
     return {
         defaultOpenKeys: [currentSubMenuKey],
