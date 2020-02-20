@@ -1,6 +1,6 @@
 import React from "react";
 import BasicLayout from "@layouts/BasicLayout";
-import CommonMenu from "@components/GlobalMenu";
+import CommonMenu, { CommonBread } from "@components/GlobalMenu";
 import GlobalHeader from '@components/GlobalHeader';
 import NotFoundPage from '@components/NotFoundPage';
 import Authorized from "@components/Authorized";
@@ -15,7 +15,6 @@ import {
 } from "react-router-dom";
 
 // TODO: 权限组件完成
-
 const MainApp: React.FunctionComponent<{
   globalConfig: GlobalConfig;
 }> = ({ globalConfig: { menu, logo, name } }) => (
@@ -28,6 +27,7 @@ const MainApp: React.FunctionComponent<{
           <BasicLayout
             menu={<CommonMenu menuConfig={menu} logo={logo} name={name}/>}
             header={<GlobalHeader />}
+            breadcrumb={<CommonBread />}
           />
         </Authorized>
       </Route>

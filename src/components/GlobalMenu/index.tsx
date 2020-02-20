@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { Menu, Icon } from "antd";
+import { Menu, Icon, Breadcrumb } from "antd";
 import { SubMenu, SubMenuOption } from './menuConfig.interface';
 import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
 import { genActiveRule } from "../../loadMicroApp/activeRule";
@@ -101,4 +101,14 @@ const CommonMenu: React.FC<{
 
     )
 };
+
+// TODO: Breadcrumb渲染，使用context进行路由的控制
+export const CommonBread: React.FC = () => {
+    return (
+        <>
+            <Breadcrumb.Item>User</Breadcrumb.Item>
+            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+        </>
+    )
+}
 export default CommonMenu;

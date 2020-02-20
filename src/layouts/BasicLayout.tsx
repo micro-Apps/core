@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Layout, Breadcrumb, Icon } from 'antd';
+import { Layout, Breadcrumb } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
 
 interface BasicLayoutProps {
     menu: JSX.Element;
     header: JSX.Element;
+    breadcrumb?: JSX.Element;
 }
 
 function useToggleCollapsed(): [boolean, () => void] {
@@ -16,9 +17,8 @@ function useToggleCollapsed(): [boolean, () => void] {
     return [state, toggleCollapsed];
 };
 
-// TODO: Breadcrumb渲染
 const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
-    const { menu, header } = props;
+    const { menu, header, breadcrumb } = props;
     const [collapseState, toggleCollapsed] = useToggleCollapsed();
 
     return (
@@ -38,12 +38,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
             <Layout>
                 <Header style={{ background: '#fff', padding: 0 }}>{header}</Header>
                 <Content style={{ margin: '0 16px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                    </Breadcrumb>
+                    <Breadcrumb style={{ margin: '16px 0' }}>{breadcrumb}</Breadcrumb>
                     <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                        <div id="content"></div>
+                        <div id="content"/>
                     </div>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>©2018 Created by Genluo</Footer>

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
+import { Skeleton, Breadcrumb } from 'antd';
 
 export interface Micro {
     appContent: string;
@@ -8,9 +9,6 @@ export interface Micro {
 
 export type RenderMicroApp = (params: Micro) => void;
 
-const Loading: React.FunctionComponent = () => (
-    <div>加载中...</div>
-);
 
 const ContainerApp: React.FunctionComponent<{
     loading: boolean;
@@ -20,7 +18,7 @@ const ContainerApp: React.FunctionComponent<{
 
     return (
         <>
-            {loading ? <Loading /> : null}
+            {loading ? <Skeleton active/> : null}
             <div dangerouslySetInnerHTML={{ __html: appContent }} />
         </>
 
