@@ -1,13 +1,14 @@
-import React, { useContext, useCallback, useMemo, useImperativeHandle } from "react";
+import React, { useContext, useMemo } from "react";
 import { Menu, Icon, Breadcrumb } from "antd";
 import { SubMenu, SubMenuOption } from './menuConfig.interface';
 import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
-import { genActiveRule } from "../../loadMicroApp/activeRule";
 import './styles/index.less';
 import { RouterContext } from '../../router-context';
+import { getCurrentSelectKeysAndDefaultOpenKey } from "./utils/dealMenuConfig";
+import MenuLogo from './MenuAvatar';
+
 
 const SubMenuComponent = Menu.SubMenu;
-
 const CreateSubMenuOptions = (config?: SubMenuOption[], SubMenuTitle?: string): React.ReactNode[] => {
     if (!config) return null;
     const { change } = useContext(RouterContext);
@@ -39,66 +40,6 @@ const CreateSubMenu = (config: SubMenu[]): React.ReactNode[] => {
     ))
 }
 
-const MenuLogo: React.FC<{
-    src: string;
-}> = ({ src }) => (
-    <div className="menu-logo">
-        <i className="logo-container">
-            <img src={src} alt=""/>
-        </i>
-    </div>
-)
-
-interface SelectKeysAndDefaultOpenKey {
-    defaultSelectedKeys: string;
-    defaultOpenKeys: string;
-}
-
-interface BreadcrumbTitle {
-    defaultOpenIndex: number;
-    defaultSelectedIndex: number;
-}
-
-type GetCurrentSelectKeysAndDefaultOpenKey = (menuConfig: MainMenu) => SelectKeysAndDefaultOpenKey & BreadcrumbTitle;
-const getCurrentSelectKeysAndDefaultOpenKey:GetCurrentSelectKeysAndDefaultOpenKey = function (menuConfig) {
-    let currentSubMenuKey: string;
-    let currentMenuOptionsKey: string;
-    let defaultSelectedIndex = 0;
-    let defaultOpenIndex = 0;
-
-    for (const subMenuConfig  of menuConfig.subMenu) {
-        currentSubMenuKey = subMenuConfig.key;
-        defaultSelectedIndex = 0;
-        for (const subMenuOptions of subMenuConfig.options) {
-            if (subMenuOptions.config.path ) {
-                if (genActiveRule(subMenuOptions.config.path)(location)) {
-                    currentMenuOptionsKey = subMenuOptions.key;
-                    break;
-                }
-            }
-            defaultSelectedIndex++;
-        }
-        if (currentMenuOptionsKey) { break }
-        defaultOpenIndex++;
-    }
-
-    // TODO: 路由对应错误处理 
-    if (!currentMenuOptionsKey) {
-        currentSubMenuKey = '';
-        currentMenuOptionsKey = '';
-        defaultSelectedIndex = 0;
-        defaultOpenIndex = 0;
-    }
-
-    return {
-        defaultOpenKeys: currentSubMenuKey,
-        defaultSelectedKeys: currentMenuOptionsKey,
-        defaultSelectedIndex,
-        defaultOpenIndex,
-    }
-}
-
-
 const CommonMenu: React.FC<{
     menuConfig: MainMenu;
     logo: string;
@@ -107,25 +48,23 @@ const CommonMenu: React.FC<{
     const { menuConfig, logo } = props;
     const SubMenu = menuConfig.subMenu;
     const {
-        defaultOpenKeys,
-        defaultSelectedKeys,
-        defaultOpenIndex,
-        defaultSelectedIndex,
+        currentSubMenuKey,
+        currentSubMenuOptionsKey,
+        currentSubMenuOptionsTitle,
+        currentSubMenuTitle,
     } = getCurrentSelectKeysAndDefaultOpenKey(menuConfig);
     const { change } = useContext(RouterContext);
     useMemo(() => {
-        const currentSubMenuTitle = SubMenu[defaultOpenIndex].title;
-        const currentSubMenuOptionsTitle = SubMenu[defaultOpenIndex].options[defaultSelectedIndex].title;
         change([currentSubMenuTitle, currentSubMenuOptionsTitle]);
-    }, [defaultOpenIndex, defaultSelectedIndex])
+    }, [currentSubMenuOptionsTitle, currentSubMenuTitle])
     return (
         <div className="menu-container">
             <div className="menu-container-inner">
                 <MenuLogo src={logo}/>
                 <Menu
                     style={{ width: 256 }}
-                    defaultSelectedKeys={[defaultSelectedKeys]}
-                    defaultOpenKeys={[defaultOpenKeys]}
+                    defaultOpenKeys={[currentSubMenuKey]}
+                    defaultSelectedKeys={[currentSubMenuOptionsKey]}
                     mode="inline"
                     theme="dark"
                 >

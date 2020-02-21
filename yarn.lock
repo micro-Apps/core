@@ -266,6 +266,11 @@
     "@babel/plugin-transform-react-jsx-self" "^7.8.3"
     "@babel/plugin-transform-react-jsx-source" "^7.8.3"
 
+"@babel/preset-stage-3@^7.8.3":
+  version "7.8.3"
+  resolved "https://registry.npm.taobao.org/@babel/preset-stage-3/download/@babel/preset-stage-3-7.8.3.tgz#cc270af0fdccd427c03dba175ffa53babe60488e"
+  integrity sha1-zCcK8P3M1CfAPboXX/pTur5gSI4=
+
 "@babel/preset-typescript@^7.8.3":
   version "7.8.3"
   resolved "https://registry.npm.taobao.org/@babel/preset-typescript/download/@babel/preset-typescript-7.8.3.tgz#90af8690121beecd9a75d0cc26c6be39d1595d13"
