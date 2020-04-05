@@ -8,3 +8,18 @@ export interface GlobalConfig {
     logo: string;
     menu: MainMenu;
 }
+
+
+interface MicroData {
+    user: {
+        name: string;
+        avatar: string;
+        logout: Function;
+        auth: Function;
+    },
+    business: {
+        name: string;
+        logo: string;
+        changeBusiness: (businessId: number) =>  void;
+    },
+}

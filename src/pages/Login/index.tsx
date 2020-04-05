@@ -3,7 +3,7 @@ import { Button } from 'antd';
 
 const Component: React.FC = () => {
     return (
-        <Button>登录按钮</Button>
+        <Button>登录</Button>
     )
 }
 

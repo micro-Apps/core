@@ -12,10 +12,10 @@ const globalConfig: GlobalConfig = {
         subMenu: [
             {
                 iconType: 'mail',
-                title: '数据盘',
+                title: '框架展示',
                 key: 'sub1',
                 options: [{
-                    title: '业绩数据',
+                    title: 'React相关',
                     key: '1',
                     config: {
                         name: 'react app',
@@ -23,12 +23,12 @@ const globalConfig: GlobalConfig = {
                         path: '/react',
                     }
                 }, {
-                    title: '门店数据',
+                    title: 'Vue相关',
                     key: '2',
                     config: {
                         name: 'vue app',
-                        entry: '//localhost:7102',
-                        path: '/node',
+                        entry: '//localhost:7101',
+                        path: '/vue',
                     }
                 }]
             }

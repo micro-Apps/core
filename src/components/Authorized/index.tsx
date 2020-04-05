@@ -2,7 +2,7 @@ import React from 'react';
 import CheckPermissions from './checkPermissions';
 
 interface AuthorizedProps {
-    author: string[]; // 可进入的权限类型
+    author: string[];
     children: React.ReactElement;
 }
 

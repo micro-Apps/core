@@ -8,7 +8,7 @@
     "clean-dist": "rimraf ./dist",
     "check-types": "tsc",
     "dev": "npm run clean-dist && cross-env NODE_ENV=development webpack-dev-server --config webpack/webpack.dev.js --env.dev",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.build.ts"
+    "build": "npm run clean-dist && cross-env NODE_ENV=development webpack --config webpack/webpack.build.js --env.dev"
   },
   "author": "Genluo",
   "license": "ISC",

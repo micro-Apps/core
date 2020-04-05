@@ -13,10 +13,10 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-
 const MainApp: React.FunctionComponent<{
   globalConfig: GlobalConfig;
 }> = ({ globalConfig: { menu, logo, name } }) => {
+
   const RouterContextValue = useRouterContext();
   return  (
     <RouterContext.Provider value={RouterContextValue}>
