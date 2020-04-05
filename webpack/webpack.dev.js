@@ -31,13 +31,16 @@ module.exports = () => {
           use: [{
               loader: "style-loader" // creates style nodes from JS strings
           }, {
-              loader: "css-loader" // translates CSS into CommonJS
+              loader: "css-loader?modules" // translates CSS into CommonJS
           }, {
-              loader: "less-loader" // compiles Less to CSS
+              loader: "less-loader", // compiles Less to CSS
+              options: {
+                javascriptEnabled: true
+              }
           }]
         },
         {
-          test:/\.(png|jpg|gif)/ ,
+          test:/\.(png|jpg|jpeg|gif)/ ,
           use:[{
               loader:'url-loader',
               options:{
@@ -56,6 +59,12 @@ module.exports = () => {
       compress: true,
       port: 8888,
       historyApiFallback: true,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3000',
+          pathRewrite: {'^/api' : ''}
+        }
+      }
     },
     plugins: [
       new HtmlWebpackPlugin({

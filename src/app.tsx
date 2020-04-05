@@ -16,8 +16,8 @@ import {
 const MainApp: React.FunctionComponent<{
   globalConfig: GlobalConfig;
 }> = ({ globalConfig: { menu, logo, name } }) => {
-
   const RouterContextValue = useRouterContext();
+
   return  (
     <RouterContext.Provider value={RouterContextValue}>
       <Router>

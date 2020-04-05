@@ -1,3 +1,5 @@
+import axios, { AxiosRequestConfig } from 'axios';
+
 /**
  * 数组中对象中取一项
  * @param arr 
@@ -16,3 +18,6 @@ export function getObjectKey(arr: any[], ...keys: string[]): any {
     return result;
 }
 
+export function request(config: AxiosRequestConfig) {
+    return axios.request(config);
+}

@@ -51,7 +51,7 @@ function bootstrapMainApp(globalConfig: GlobalConfig): void {
     ReactDOM.render(<MainApp globalConfig={globalConfig} />, mainContainer);
 }
 
-function bootstrap(): void {
+async function bootstrap() {
     // 启动主应用
     bootstrapMainApp(globalConfig);
     // 注册子应用
