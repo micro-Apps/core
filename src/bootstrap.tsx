@@ -1,61 +1,39 @@
-import registeredMicroApps from "./loadMicroApp/registerMicroApps";
-import { GlobalConfig } from './global.config.interface';
-import loadable from '@loadable/component';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import NotFoundPage from '@components/NotFoundPage';
+import Authorized from "@components/Authorized";
+import LoginPage from '@pages/Login';
+import { RouterContext, useRouterContext } from './router-context';
+import Main from "./main";
 
-const globalConfig: GlobalConfig = {
-    name: '星巴克新零售管理系统',
-    logo: 'https://www-static.chinacdn.starbucks.com.cn/prod/assets/images/logo.svg',
-    menu: {
-        mode: 'inline',
-        subMenu: [
-            {
-                iconType: 'mail',
-                title: '框架展示',
-                key: 'sub1',
-                options: [{
-                    title: 'React相关',
-                    key: '1',
-                    config: {
-                        name: 'react app',
-                        entry: '//localhost:7100',
-                        path: '/react',
-                    }
-                }, {
-                    title: 'Vue相关',
-                    key: '2',
-                    config: {
-                        name: 'vue app',
-                        entry: '//localhost:7101',
-                        path: '/vue',
-                    }
-                }]
-            }
-        ]
-    }
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+} from "react-router-dom";
+  
+const MainApp: React.FunctionComponent = (props) => {
+    const RouterContextValue = useRouterContext();
+    return  (
+        <RouterContext.Provider value={RouterContextValue}>
+        <Router>
+            <Switch>
+            <Route path="/login" component={LoginPage}/>
+            <Route path='/404' component={NotFoundPage} />
+            <Route path="/">
+                <Authorized author={["ADMIN"]}>
+                <Main />
+                </Authorized>
+            </Route>
+            </Switch>
+        </Router>
+        </RouterContext.Provider>
+    );
 }
 
-/**
- * {
- *  fallback: <PageLoading />
- *  }
- * 如果APP内容过大需要懒加载
- */
-const MainApp: React.FC<{
-    globalConfig: GlobalConfig;
-}> = loadable(() => import('./app'));
-
-function bootstrapMainApp(globalConfig: GlobalConfig): void {
+function bootstrapMainApp(): void {
     const mainContainer: Element = document.getElementById('main');
-    ReactDOM.render(<MainApp globalConfig={globalConfig} />, mainContainer);
+    ReactDOM.render(<MainApp />, mainContainer);
 }
 
-async function bootstrap() {
-    // 启动主应用
-    bootstrapMainApp(globalConfig);
-    // 注册子应用
-    registeredMicroApps(globalConfig.menu);
-}
-
-bootstrap();
+bootstrapMainApp();

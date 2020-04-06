@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react";
-import { Menu, Icon, Breadcrumb } from "antd";
+import { Menu, Breadcrumb } from "antd";
 import { SubMenu, SubMenuOption } from './menuConfig.interface';
 import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
 import './styles/index.less';
@@ -30,7 +30,6 @@ const CreateSubMenu = (config: SubMenu[]): React.ReactNode[] => {
             key={SubMenuConfig.key}
             title={
                 <span>
-                    <Icon type={SubMenuConfig.iconType} />
                     <span>{SubMenuConfig.title}</span>
                 </span>
             }

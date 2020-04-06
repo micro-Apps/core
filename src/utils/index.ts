@@ -16,12 +16,18 @@ export function getObjectKey(arr: any[], ...keys: string[]): any {
     for (const key of keys) {
         result = currentArr.map(target => target[key]);
         currentArr = result.flat(1);
-     }
+     };
     return result;
 }
 
 export async function request(config: AxiosRequestConfig) {
-    const response = await axios.request(config);
+    const { token } = GetCurrentAuthority();
+    const response = await axios.request({
+        ...config,
+        headers: {
+            'Authorization': token
+        }
+    });
     return response.data;
 }
 interface Business {
@@ -37,6 +43,7 @@ export interface UserInfo {
     username: string;
     role: RoleType;
     business: Business[];
+    token: string;
 }
 export function GetCurrentAuthority(): UserInfo {
     const itemStr = localStorage.getItem(USER_INFO_KEY);

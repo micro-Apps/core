@@ -8,13 +8,8 @@ interface AuthorizeProps {
     userInfo?: UserInfo;
 }
 
-const Authorize: React.FC<AuthorizeProps> = (props) => {
-    const { author, children, userInfo } = props;
-    return <CheckPermissions authority={author} target={children} userInfo={userInfo}/>
-}
-
-const RenderAuthorize = (userInfo: UserInfo) => {
-    return ({ author, children }): React.FC<AuthorizeProps> => <CheckPermissions authority={author} userInfo={userInfo} target={children}/>
+const RenderAuthorize = (userInfo: UserInfo): React.FC<AuthorizeProps> => {
+    return ({ author, children }) => (<CheckPermissions authority={author} userInfo={userInfo} target={children}/>)
 }
 
 let Authorized = RenderAuthorize(GetCurrentAuthority())
@@ -23,4 +18,5 @@ export function reloadAuthorized() {
     console.log('reloadAuthorized');
     Authorized = RenderAuthorize(GetCurrentAuthority());
 }
+
 export default Authorized;

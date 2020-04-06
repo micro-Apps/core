@@ -23,3 +23,35 @@ interface MicroData {
         changeBusiness: (businessId: number) =>  void;
     },
 }
+
+
+export interface ModuleDto {
+    readonly id: string;
+    readonly name: string;
+    readonly version: string;
+    readonly address: string;
+}
+
+export interface OptionsDto {
+    readonly id: string;
+    readonly name: string;
+    readonly router: string;
+    readonly module: ModuleDto;
+}
+
+export interface SubMenuDto {
+    readonly id: string;
+    readonly key: string;
+    readonly title: string;
+    readonly options: OptionsDto[];
+}
+
+export interface ConfigDto {
+    readonly id: string;
+    readonly name: string;
+    readonly logo: string;
+    readonly describe: string;
+    readonly domain: string;
+    readonly subMenu: SubMenuDto[];
+}
+

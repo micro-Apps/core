@@ -1,10 +1,11 @@
 import React from 'react';
+import styles from './styles/index.less';
 
 const MenuLogo: React.FC<{
     src: string;
 }> = ({ src }) => (
-    <div className="menu-logo">
-        <i className="logo-container">
+    <div className={styles.menuLogo}>
+        <i className={styles.logoContainer}>
             <img src={src} alt=""/>
         </i>
     </div>

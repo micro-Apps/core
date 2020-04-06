@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
-import './styles/UserAvatar.less';
-import { Avatar, Badge, Menu, Icon, Dropdown, message } from 'antd';
+import styles from './styles/UserAvatar.less';
+import { Avatar, Badge, Icon, Menu, Dropdown, message } from 'antd';
 
 const UserAvatarOptions = () => {
     const menuItemClick = useCallback(({ key }) => {
@@ -19,7 +19,7 @@ const UserAvatarOptions = () => {
 
 const Notification: React.FC = () => {
     return (
-        <div className="notification-container">
+        <div className={styles.notificationContainer}>
             <Badge dot><Icon type="notification" style={{fontSize: '15px'}} /></Badge>
         </div>
     )
@@ -27,7 +27,7 @@ const Notification: React.FC = () => {
 
 const Help: React.FC = () => {
     return (
-        <div className="help-container">
+        <div className={styles.helpContainer}>
             <Icon type="question-circle" style={{fontSize: '15px'}}/>
         </div>
     )
@@ -58,8 +58,8 @@ const UserAvatar: React.FC<{
             <Help />
             <Notification />
             <UserAvatarContainer>
-                <div className="userAvatar-container">
-                    <i className="userAvatar-avatar"><Avatar size="default">G</Avatar></i>
+                <div className={styles.userAvatarContainer}>
+                    <i className={styles.userAvatarName}><Avatar size="default">G</Avatar></i>
                 </div>
             </UserAvatarContainer>
         </>
