@@ -1,34 +1,44 @@
 import { Alert, Checkbox } from 'antd';
 import React from 'react';
-import LoginFrom from './components/Login';
+import { Router, RouteComponentProps } from 'react-router-dom';
 
+import LoginFrom from './components/Login';
+import { login, LoginDto } from './service';
 import styles from './style.less';
 import UserLayout from '@layouts/UserLayout';
+import { SetCurrentAuthority, getPageQuery } from '@utils/index';
+import { reloadAuthorized } from '@components/Authorized';
 
 const { UserName, Password, Submit } = LoginFrom;
-interface LoginProps {
-  name?: string;
-}
 
-const LoginMessage: React.FC<{
-  content: string;
-}> = ({ content }) => (
-  <Alert
-    style={{
-      marginBottom: 24,
-    }}
-    message={content}
-    type="error"
-    showIcon
-  />
-);
+const Login: React.FC<RouteComponentProps> = props => {
+  const onSubmit = async (data: LoginDto) => {
+    const response = await login(data)
+    SetCurrentAuthority(response.data);
+    reloadAuthorized();
+    const urlParams = new URL(window.location.href);
+    const params = getPageQuery();
+    let { redirect } = params as { redirect: string };
+    if (redirect) {
+      const redirectUrlParams = new URL(redirect);
+      if (redirectUrlParams.origin === urlParams.origin) {
+        redirect = redirect.substr(urlParams.origin.length);
+        if (redirect.match(/^\/.*#/)) {
+          redirect = redirect.substr(redirect.indexOf('#') + 1);
+        }
+      } else {
+        window.location.href = '/';
+        return;
+      }
+    }
+    props.history.push(redirect || '/');
+  };
 
-const Login: React.FC<LoginProps> = props => {
 
   return (
     <UserLayout>
       <div className={styles.main}>
-        <LoginFrom>
+        <LoginFrom onSubmit={onSubmit}>
             <UserName
               name="username"
               placeholder="用户名"

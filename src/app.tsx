@@ -18,6 +18,7 @@ const MainApp: React.FunctionComponent<{
 }> = ({ globalConfig: { menu, logo, name } }) => {
   const RouterContextValue = useRouterContext();
 
+
   return  (
     <RouterContext.Provider value={RouterContextValue}>
       <Router>
@@ -25,7 +26,7 @@ const MainApp: React.FunctionComponent<{
           <Route path="/login" component={LoginPage}/>
           <Route path='/404' component={NotFoundPage} />
           <Route path="/">
-            <Authorized author={["admin"]}>
+            <Authorized author={["ADMIN"]}>
               <BasicLayout
                 menu={<CommonMenu menuConfig={menu} logo={logo} name={name}/>}
                 header={<GlobalHeader />}
