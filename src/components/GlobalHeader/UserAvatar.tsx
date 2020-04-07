@@ -7,7 +7,6 @@ import {
     DisconnectOutlined,
     NotificationOutlined,
     QuestionCircleOutlined,
-
 } from '@ant-design/icons';
 
 const UserAvatarOptions = () => {

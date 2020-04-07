@@ -21,7 +21,6 @@ const ContainerApp: React.FunctionComponent<{
             {loading ? <Skeleton active/> : null}
             <div dangerouslySetInnerHTML={{ __html: appContent }} />
         </>
-
     )
 }
 

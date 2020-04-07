@@ -18,7 +18,7 @@ function transform(config: ConfigDto):GlobalConfig {
             config: {
                 name: item.name, // 名称
                 entry: item.module.address, // 远程地址
-                path: item.router, // 路由
+                path: `${item.router}`, // 路由
             }
         }))
     };
@@ -53,20 +53,19 @@ function useConfig() {
             registeredMicroApps(globalConfig.menu);
         })()
     }, []);
-
     return config;
 }
 
-const Main: React.FC = props => {
+const Main: React.FunctionComponent = () => {
     const config = useConfig();
-
-    return config ? (
+    if (!config) return (<></>);
+    return (
         <BasicLayout
             menu={<CommonMenu menuConfig={config.menu} logo={config.logo} name={config.name}/>}
             header={<GlobalHeader />}
             breadcrumb={<CommonBread />}
         />
-    ) : false;
+    );
 };
 
 export default Main;

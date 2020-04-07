@@ -10,7 +10,8 @@ module.exports = () => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'main.bundle.js',
-      chunkFilename: '[name].bundle.js'
+      chunkFilename: '[name].bundle.js',
+      publicPath: '/'
     },
     module: {
       rules: [
