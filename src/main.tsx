@@ -51,7 +51,7 @@ function useConfig() {
             const globalConfig = transform(response);
             setConfig(globalConfig);
             registeredMicroApps(globalConfig.menu);
-        })()
+        })();
     }, []);
     return config;
 }

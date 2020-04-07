@@ -12,8 +12,9 @@ import {
     Switch,
 } from "react-router-dom";
   
-const MainApp: React.FunctionComponent = (props) => {
+const MainApp: React.FunctionComponent = props => {
     const RouterContextValue = useRouterContext();
+
     return  (
         <RouterContext.Provider value={RouterContextValue}>
         <Router>
