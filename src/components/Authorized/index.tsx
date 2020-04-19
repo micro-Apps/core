@@ -14,9 +14,10 @@ const RenderAuthorize = (userInfo: UserInfo): React.FC<AuthorizeProps> => {
 
 let Authorized = RenderAuthorize(GetCurrentAuthority())
 
-export function reloadAuthorized() {
-    console.log('reloadAuthorized');
+
+const reloadAuthorized = (): void => {
     Authorized = RenderAuthorize(GetCurrentAuthority());
 }
 
+export { reloadAuthorized };
 export default Authorized;

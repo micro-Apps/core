@@ -11,7 +11,7 @@ import {
     Route,
     Switch,
 } from "react-router-dom";
-  
+
 const MainApp: React.FunctionComponent = props => {
     const RouterContextValue = useRouterContext();
 
@@ -23,7 +23,7 @@ const MainApp: React.FunctionComponent = props => {
             <Route path='/404' component={NotFoundPage} />
             <Route path="/">
                 <Authorized author={["ADMIN"]}>
-                <Main />
+                    <Main />
                 </Authorized>
             </Route>
             </Switch>

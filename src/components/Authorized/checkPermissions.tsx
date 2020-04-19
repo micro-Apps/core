@@ -13,7 +13,6 @@ const CheckPermissions: React.FC<{
     authority: string[];
     target: React.ReactElement;
     userInfo: UserInfo;
-
 }> = (props) => {
     const { authority, target, userInfo } = props;
     const { role } = userInfo;
