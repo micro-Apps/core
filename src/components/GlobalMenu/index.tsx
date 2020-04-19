@@ -53,9 +53,11 @@ const CommonMenu: React.FC<{
         currentSubMenuTitle,
     } = getCurrentSelectKeysAndDefaultOpenKey(menuConfig);
     const { change } = useContext(RouterContext);
+    
     useMemo(() => {
         change([currentSubMenuTitle, currentSubMenuOptionsTitle]);
-    }, [currentSubMenuOptionsTitle, currentSubMenuTitle])
+    }, [currentSubMenuOptionsTitle, currentSubMenuTitle]);
+    
     return (
         <div className="menu-container">
             <div className="menu-container-inner">

@@ -8,6 +8,7 @@ import { GlobalConfig, ConfigDto, OptionsDto } from './global.config.interface';
 
 import registeredMicroApps from './loadMicroApp/registerMicroApps';
 import { getConfig } from './service';
+import { RouteProps } from 'react-router-dom';
 
 function transform(config: ConfigDto):GlobalConfig {
     const transformOptions = (data: OptionsDto[]): SubMenuOption[] => {
@@ -55,9 +56,11 @@ function useConfig() {
     return config;
 }
 
-const Main: React.FunctionComponent = () => {
+const Main: React.FunctionComponent<RouteProps> = props => {
     const config = useConfig();
     if (!config) return (<></>);
+
+    console.log("props", props);
     return (
         <BasicLayout
             menu={<CommonMenu menuConfig={config.menu} logo={config.logo} name={config.name}/>}

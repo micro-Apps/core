@@ -9,13 +9,13 @@ import {
     QuestionCircleOutlined,
 } from '@ant-design/icons';
 import { clearUserInfo } from "@utils/index";
+import { withRouter } from "react-router-dom";
 
-const UserAvatarOptions = () => {
+const UserAvatarOptions = withRouter((props) => {
     const menuItemClick = useCallback(({ key }) => {
         if (key === 'logout') {
             clearUserInfo();
-            // TODO: 跳转方式
-            window.location.href = '/';
+            props.history.replace('/login');
         }
     }, []);
 
@@ -27,7 +27,8 @@ const UserAvatarOptions = () => {
             <Menu.Item key="logout"><DisconnectOutlined  />退出登录</Menu.Item>
         </Menu>
     )
-}
+})
+
 
 const Notification: React.FC = () => {
     return (
