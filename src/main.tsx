@@ -9,7 +9,6 @@ import { GlobalConfig, ConfigDto, OptionsDto } from './global.config.interface';
 import registeredMicroApps from './loadMicroApp/registerMicroApps';
 import { getConfig } from './service';
 
-
 function transform(config: ConfigDto):GlobalConfig {
     const transformOptions = (data: OptionsDto[]): SubMenuOption[] => {
         return data.map(item => ({

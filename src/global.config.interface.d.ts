@@ -9,7 +9,6 @@ export interface GlobalConfig {
     menu: MainMenu;
 }
 
-
 interface MicroData {
     user: {
         name: string;
@@ -23,7 +22,6 @@ interface MicroData {
         changeBusiness: (businessId: number) =>  void;
     },
 }
-
 
 export interface ModuleDto {
     readonly id: string;
