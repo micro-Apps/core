@@ -1,6 +1,6 @@
 import { parse } from 'querystring';
 import axios, { AxiosRequestConfig } from 'axios';
-import { USER_INFO_KEY, RoleType } from '../constant';
+import { USER_INFO_KEY, RoleType, USER_KEY, AUTHORITY_KEY } from '../constant';
 
 /**
  * 数组中对象中取一项
@@ -55,7 +55,20 @@ export function GetCurrentAuthority(): UserInfo {
     return result;
 }
 
-export function SetCurrentAuthority(info: UserInfo) {
+export function setUserInfo(info: UserInfo) {
     localStorage.setItem(USER_INFO_KEY, JSON.stringify(info));
 }
+
+export function clearUserInfo() {
+    localStorage.removeItem(USER_INFO_KEY);
+}
+
+export function setAuthority(params: string[]) {
+    localStorage.setItem(AUTHORITY_KEY, JSON.stringify(params));
+}
+
+export function clearAuthority() {
+    localStorage.removeItem(AUTHORITY_KEY);
+}
+
 export const getPageQuery = () => parse(window.location.href.split('?')[1]);

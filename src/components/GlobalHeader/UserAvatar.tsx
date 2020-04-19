@@ -1,6 +1,6 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import styles from './styles/UserAvatar.less';
-import { Avatar, Badge, Menu, Dropdown, message } from 'antd';
+import { Avatar, Badge, Menu, Dropdown } from 'antd';
 import {
     UserOutlined,
     SettingOutlined,
@@ -8,10 +8,15 @@ import {
     NotificationOutlined,
     QuestionCircleOutlined,
 } from '@ant-design/icons';
+import { clearUserInfo } from "@utils/index";
 
 const UserAvatarOptions = () => {
     const menuItemClick = useCallback(({ key }) => {
-        message.info(`click on item ${key}`);
+        if (key === 'logout') {
+            clearUserInfo();
+            // TODO: 跳转方式
+            window.location.href = '/';
+        }
     }, []);
 
     return (
@@ -19,7 +24,7 @@ const UserAvatarOptions = () => {
             <Menu.Item key="center"><UserOutlined />个人中心</Menu.Item>
             <Menu.Item key="setting"><SettingOutlined />个人设置</Menu.Item>
             <Menu.Divider />
-            <Menu.Item key="logout"><DisconnectOutlined />退出登录</Menu.Item>
+            <Menu.Item key="logout"><DisconnectOutlined  />退出登录</Menu.Item>
         </Menu>
     )
 }

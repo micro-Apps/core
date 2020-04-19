@@ -1,12 +1,11 @@
 import { Alert, Checkbox } from 'antd';
 import React from 'react';
-import { Router, RouteComponentProps } from 'react-router-dom';
-
+import { RouteComponentProps } from 'react-router-dom';
 import LoginFrom from './components/Login';
 import { login, LoginDto } from './service';
 import styles from './style.less';
 import UserLayout from '@layouts/UserLayout';
-import { SetCurrentAuthority, getPageQuery } from '@utils/index';
+import { setUserInfo, getPageQuery } from '@utils/index';
 import { reloadAuthorized } from '@components/Authorized';
 
 const { UserName, Password, Submit } = LoginFrom;
@@ -14,7 +13,7 @@ const { UserName, Password, Submit } = LoginFrom;
 const Login: React.FC<RouteComponentProps> = props => {
   const onSubmit = async (data: LoginDto) => {
     const response = await login(data)
-    SetCurrentAuthority(response.data);
+    setUserInfo(response.data);
     reloadAuthorized();
     const urlParams = new URL(window.location.href);
     const params = getPageQuery();
@@ -33,7 +32,6 @@ const Login: React.FC<RouteComponentProps> = props => {
     }
     props.history.push(redirect || '/');
   };
-
 
   return (
     <UserLayout>
