@@ -8,19 +8,27 @@ import { GlobalConfig, ConfigDto, OptionsDto } from './global.config.interface';
 
 import registeredMicroApps from './loadMicroApp/registerMicroApps';
 import { getConfig } from './service';
-import { RouteProps } from 'react-router-dom';
+import { RouteProps, Redirect } from 'react-router-dom';
 
 function transform(config: ConfigDto):GlobalConfig {
+    let defaultEntity = '';
+    const setDefaultEntity = (entity: string): void => {
+        if (!defaultEntity) {defaultEntity = entity}
+    };
+
     const transformOptions = (data: OptionsDto[]): SubMenuOption[] => {
-        return data.map(item => ({
-            title: item.name,
-            key: item.id,
-            config: {
-                name: item.name, // 名称
-                entry: item.module.address, // 远程地址
-                path: `${item.router}`, // 路由
-            }
-        }))
+        return data.map(item => {
+            setDefaultEntity(item.router);
+            return ({
+                title: item.name,
+                key: item.id,
+                config: {
+                    name: item.name, // 名称
+                    entry: item.module.address, // 远程地址
+                    path: `${item.router}`, // 路由
+                }
+            });
+        })
     };
 
     const transformMenu = (data: ConfigDto['subMenu']): SubMenu[] => {
@@ -32,15 +40,17 @@ function transform(config: ConfigDto):GlobalConfig {
         }));
     };
 
-    let globalConfig: GlobalConfig = {
+    const menu: GlobalConfig['menu'] = {
+        mode: 'inline',
+        subMenu: transformMenu(config.subMenu),
+    }
+
+    return {
         name: config.name,
         logo: config.logo,
-        menu: {
-            mode: 'inline',
-            subMenu: transformMenu(config.subMenu)
-        }
+        defaultEntity: defaultEntity,
+        menu: menu
     }
-    return globalConfig;
 }
 
 function useConfig() {
@@ -60,13 +70,15 @@ const Main: React.FunctionComponent<RouteProps> = props => {
     const config = useConfig();
     if (!config) return (<></>);
 
-    console.log("props", props);
     return (
-        <BasicLayout
-            menu={<CommonMenu menuConfig={config.menu} logo={config.logo} name={config.name}/>}
-            header={<GlobalHeader />}
-            breadcrumb={<CommonBread />}
-        />
+        <>
+            <Redirect to={config.defaultEntity}/>
+            <BasicLayout
+                menu={<CommonMenu menuConfig={config.menu} logo={config.logo} name={config.name}/>}
+                header={<GlobalHeader />}
+                breadcrumb={<CommonBread />}
+            />
+        </>
     );
 };
 

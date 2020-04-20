@@ -10,6 +10,7 @@ import {
     BrowserRouter as Router,
     Route,
     Switch,
+    Redirect,
 } from "react-router-dom";
 
 const MainApp: React.FunctionComponent = props => {
@@ -19,13 +20,13 @@ const MainApp: React.FunctionComponent = props => {
         <RouterContext.Provider value={RouterContextValue}>
         <Router>
             <Switch>
-            <Route path="/login" component={LoginPage}/>
-            <Route path='/404' component={NotFoundPage} />
-            <Route path="/">
-                <Authorized author={["ADMIN"]}>
-                    <Main />
-                </Authorized>
-            </Route>
+                <Route path="/login" component={LoginPage}/>
+                <Route path='/404' component={NotFoundPage} />
+                <Route path="/">
+                    <Authorized author={["ADMIN"]}>
+                        <Main />
+                    </Authorized>
+                </Route>
             </Switch>
         </Router>
         </RouterContext.Provider>

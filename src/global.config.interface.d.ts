@@ -6,6 +6,7 @@ import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
 export interface GlobalConfig {
     name: string;
     logo: string;
+    defaultEntity: string;
     menu: MainMenu;
 }
 
