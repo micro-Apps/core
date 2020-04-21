@@ -21,7 +21,6 @@ const MainApp: React.FunctionComponent = props => {
         <Router>
             <Switch>
                 <Route path="/login" component={LoginPage}/>
-                <Route path='/404' component={NotFoundPage} />
                 <Route path="/">
                     <Authorized author={["ADMIN"]}>
                         <Main />

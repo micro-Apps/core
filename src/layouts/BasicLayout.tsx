@@ -21,6 +21,16 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
     const { menu, header, breadcrumb } = props;
     const [collapseState, toggleCollapsed] = useToggleCollapsed();
 
+
+    const renderContent = () => props.children ? (props.children) : (
+        <>
+            <Breadcrumb style={{ margin: '16px 0' }}>{breadcrumb}</Breadcrumb>
+            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                <div id="content"/>
+            </div>
+        </>
+    );
+
     return (
         <Layout style={{ minHeight: '100vh' }}>
              <Sider
@@ -38,10 +48,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
             <Layout>
                 <Header style={{ background: '#fff', padding: 0 }}>{header}</Header>
                 <Content style={{ margin: '0 16px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>{breadcrumb}</Breadcrumb>
-                    <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                        <div id="content"/>
-                    </div>
+                    {renderContent()}
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>©2018 Created by Genluo</Footer>
             </Layout>            

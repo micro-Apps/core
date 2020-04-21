@@ -1,9 +1,9 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import ReactDom from "react-dom";
 import { Skeleton, Breadcrumb } from 'antd';
 
 export interface Micro {
-    appContent: string;
+    appContent: string | ReactElement;
     loading: boolean;
 }
 
@@ -31,5 +31,9 @@ const ContainerApp: React.FunctionComponent<{
 export const renderMicroApp: RenderMicroApp =  function (params) {
     const { appContent, loading } = params;
     const targetElement: Element = document.getElementById('content');
-    ReactDom.render(<ContainerApp loading={loading} appContent={appContent} />, targetElement);
+    if (typeof appContent === 'string') {
+        ReactDom.render(<ContainerApp loading={loading} appContent={appContent} />, targetElement);
+    } else {
+        ReactDom.render(<>{appContent}</>, targetElement);
+    }
 }
