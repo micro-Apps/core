@@ -6,9 +6,9 @@ import { SubMenu, SubMenuOption } from "@components/GlobalMenu/menuConfig.interf
 import GlobalHeader from '@components/GlobalHeader';
 import { GlobalConfig, ConfigDto, OptionsDto } from './global.config.interface';
 
-import registeredMicroApps from './loadMicroApp/registerMicroApps';
+import registeredMicroApps, { isNeedLoadEmpty } from './loadMicroApp/registerMicroApps';
 import { getConfig } from './service';
-import { RouteProps, Redirect } from 'react-router-dom';
+import { RouteProps, Redirect, withRouter } from 'react-router-dom';
 
 function transform(config: ConfigDto):GlobalConfig {
     let defaultEntity = '';
@@ -66,13 +66,39 @@ function useConfig() {
     return config;
 }
 
+const useMicroApp = (config: GlobalConfig, props: RouteProps) => {
+    const [needRedirect404, setNeedRedirect] = useState(false);
+    useEffect(() => {
+        if (!config) return;
+        if (isNeedLoadEmpty(config.menu)) {
+            setNeedRedirect(true);
+        };
+        props.history.listen(() => {
+            if (isNeedLoadEmpty(config.menu)) {
+                setNeedRedirect(true);
+            } else {
+                setNeedRedirect(false);
+            }
+        });
+    }, [config]);
+
+    return needRedirect404;
+}
+
+
+// TODO: 子应用未匹配情况处理
+// TODO: 子应用报错情况处理
 const Main: React.FunctionComponent<RouteProps> = props => {
     const config = useConfig();
+    const needRedirect404 = useMicroApp(config, props);
+
     if (!config) return (<></>);
+    const needRedirect = props.location.pathname === '/';
 
     return (
         <>
-            <Redirect to={config.defaultEntity}/>
+            {needRedirect404 && <Redirect to={'/404'} />}
+            {needRedirect && <Redirect to={config.defaultEntity}/>}
             <BasicLayout
                 menu={<CommonMenu menuConfig={config.menu} logo={config.logo} name={config.name}/>}
                 header={<GlobalHeader />}
@@ -82,4 +108,4 @@ const Main: React.FunctionComponent<RouteProps> = props => {
     );
 };
 
-export default Main;
+export default withRouter(Main);
