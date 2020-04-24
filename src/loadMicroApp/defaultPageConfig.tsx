@@ -4,6 +4,8 @@ import { genActiveRule } from "./activeRule";
 import { renderMicroApp } from "./render";
 import { MicroAppProp } from "qiankun";
 import NoFoundPage from '@components/NotFoundPage';
+import ErrorPage from '@components/ErrorPage';
+
 
 interface PageConfig {
     name: string;
@@ -15,6 +17,10 @@ const config: PageConfig[] = [{
     name: 'noFound',
     component: NoFoundPage,
     router: '/404',
+}, {
+    name: "error",
+    component: ErrorPage,
+    router: '/error',
 }];
 
 function getMicroAppConfig(config: PageConfig[]): MicroAppProp[] {

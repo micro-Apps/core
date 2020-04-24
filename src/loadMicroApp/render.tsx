@@ -31,7 +31,7 @@ const ContainerApp: React.FunctionComponent<{
 export const renderMicroApp: RenderMicroApp =  function (params) {
     const { appContent, loading } = params;
     const targetElement: Element = document.getElementById('content');
-    console.log(loading, appContent);
+
     if (typeof appContent === 'string') {
         ReactDom.render(<ContainerApp loading={loading} appContent={appContent} />, targetElement);
     } else {

@@ -7,7 +7,7 @@ import { GlobalConfig, ConfigDto, OptionsDto } from './global.config.interface';
 
 import registeredMicroApps, { isNeedLoadEmpty } from './loadMicroApp/registerMicroApps';
 import { getConfig } from './service';
-import { RouteProps, Redirect, withRouter } from 'react-router-dom';
+import { RouteComponentProps, Redirect, withRouter } from 'react-router-dom';
 
 function transform(config: ConfigDto):GlobalConfig {
     let defaultEntity = '';
@@ -65,7 +65,7 @@ function useConfig() {
     return config;
 }
 
-const useMicroApp = (config: GlobalConfig, props: RouteProps) => {
+const useMicroApp = (config: GlobalConfig, props: RouteComponentProps) => {
     const [needRedirect404, setNeedRedirect] = useState(false);
     useEffect(() => {
         if (!config) return;
@@ -92,7 +92,7 @@ function useRouterState() {
 }
 
 // TODO: 子应用报错情况处理
-const Main: React.FunctionComponent<RouteProps> = props => {
+const Main: React.FunctionComponent<RouteComponentProps> = props => {
     const config = useConfig();
     const needRedirect404 = useMicroApp(config, props);
     const { is404Page, isMainPage } = useRouterState();
