@@ -15,7 +15,7 @@ declare module "qiankun" {
     }
     export interface MicroAppProp {
         name: string;
-        entry: string;
+        entry: string | { html?: string, scripts: string[], styles: string[]};
         render: (params: RenderParams) => void;
         activeRule: (params: any) => boolean;
     }

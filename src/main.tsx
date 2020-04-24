@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import {renderToString} from 'react-dom/server'
 import BasicLayout from "@layouts/BasicLayout";
 import CommonMenu, { CommonBread } from "@components/GlobalMenu";
 import { SubMenu, SubMenuOption } from "@components/GlobalMenu/menuConfig.interface";
@@ -9,8 +8,6 @@ import { GlobalConfig, ConfigDto, OptionsDto } from './global.config.interface';
 import registeredMicroApps, { isNeedLoadEmpty } from './loadMicroApp/registerMicroApps';
 import { getConfig } from './service';
 import { RouteProps, Redirect, withRouter } from 'react-router-dom';
-import { renderMicroApp } from './loadMicroApp/render';
-import NotFoundPage from '@components/NotFoundPage';
 
 function transform(config: ConfigDto):GlobalConfig {
     let defaultEntity = '';
@@ -87,27 +84,31 @@ const useMicroApp = (config: GlobalConfig, props: RouteProps) => {
     return needRedirect404;
 }
 
+function useRouterState() {
+    return {
+        isMainPage: window.location.pathname === '/',
+        is404Page: window.location.pathname === '/404',
+    }
+}
 
 // TODO: 子应用报错情况处理
 const Main: React.FunctionComponent<RouteProps> = props => {
     const config = useConfig();
     const needRedirect404 = useMicroApp(config, props);
+    const { is404Page, isMainPage } = useRouterState();
 
     if (!config) return (<></>);
-    const needRedirect = props.location.pathname === '/';
-    const is404Page = props.location.pathname === '/404';
 
     return (
         <>
             {needRedirect404 && <Redirect to="/404" />}
-            {needRedirect && <Redirect to={config.defaultEntity}/>}
+            {isMainPage && <Redirect to={config.defaultEntity}/>}
             <BasicLayout
                 menu={<CommonMenu menuConfig={config.menu} logo={config.logo} name={config.name}/>}
                 header={<GlobalHeader />}
                 breadcrumb={<CommonBread />}
-            >
-                { is404Page ? (<NotFoundPage />) : false}
-            </BasicLayout>
+            />
+            
         </>
     );
 };

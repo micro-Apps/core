@@ -3,6 +3,8 @@ import { MicroAppProp } from 'qiankun';
 import { renderMicroApp } from  './render';
 import { genActiveRule } from "./activeRule";
 import { getObjectKey } from '@utils/index'
+import defaultPageConfig from './defaultPageConfig';
+
 
 export function  getMicroAppsConfig(menuConfig: MainMenu): SubMenuOptionConfig[] {
     const { subMenu } = menuConfig;
@@ -19,7 +21,8 @@ export function getRegisterMicroApps(menuConfig: MainMenu): MicroAppProp[] {
         activeRule: genActiveRule(currentPageConfig.path),
         render: ({ appContent, loading }): void => renderMicroApp({ appContent, loading })
     }));
-    return result;
+
+    return [...result, ...defaultPageConfig];
 }
 
 export function getMenuConfig(menuConfig: MainMenu): MainMenu {

@@ -3133,7 +3133,7 @@ import-fresh@^3.0.0:
     parent-module "^1.0.0"
     resolve-from "^4.0.0"
 
-import-html-entry@^1.4.1:
+import-html-entry@^1.6.0:
   version "1.6.0"
   resolved "https://registry.npm.taobao.org/import-html-entry/download/import-html-entry-1.6.0.tgz#d5a23adf28f155ee2710571ed4e85397752a753f"
   integrity sha1-1aI63yjxVe4nEFce1OhTl3UqdT8=
@@ -4711,15 +4711,15 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.npm.taobao.org/punycode/download/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha1-tYsBCsQMIsVldhbI0sLALHv0eew=
 
-qiankun@^1.4.5:
-  version "1.4.5"
-  resolved "https://registry.npm.taobao.org/qiankun/download/qiankun-1.4.5.tgz#c309d69b0037163ab47bfcbc96d993d0111ef7e3"
-  integrity sha1-wwnWmwA3Fjq0e/y8ltmT0BEe9+M=
+qiankun@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.npm.taobao.org/qiankun/download/qiankun-2.0.5.tgz#da174f22bd3ecd1aeb77d33da24d824b24c9ac41"
+  integrity sha1-2hdPIr0+zRrrd9M9ok2CSyTJrEE=
   dependencies:
     "@babel/runtime" "^7.5.5"
-    import-html-entry "^1.4.1"
+    import-html-entry "^1.6.0"
     lodash "^4.17.11"
-    single-spa "^4.4.3"
+    single-spa "^5.3.1"
     tslib "^1.10.0"
 
 qs@6.7.0:
@@ -5723,10 +5723,10 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.npm.taobao.org/signal-exit/download/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
-single-spa@^4.4.3:
-  version "4.4.3"
-  resolved "https://registry.npm.taobao.org/single-spa/download/single-spa-4.4.3.tgz#4dff3a17f633b732691cff25cf0bf0897ecdfd37"
-  integrity sha1-Tf86F/YztzJpHP8lzwvwiX7N/Tc=
+single-spa@^5.3.1:
+  version "5.3.4"
+  resolved "https://registry.npm.taobao.org/single-spa/download/single-spa-5.3.4.tgz#d456b698f2068e98f94d3e203620dfc69b1a57c4"
+  integrity sha1-1Fa2mPIGjpj5TT4gNiDfxpsaV8Q=
 
 slice-ansi@^2.1.0:
   version "2.1.0"

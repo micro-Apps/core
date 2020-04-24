@@ -1,4 +1,4 @@
-import { registerMicroApps, start, MicroAppProp } from 'qiankun';
+import { registerMicroApps, start } from 'qiankun';
 import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
 import { getRegisterMicroApps } from "./dealConfig";
 
@@ -16,7 +16,6 @@ export function isNeedLoadEmpty(menu: MainMenu) {
     }
     return getNeedLoadEmpty();
 };
-
 
 export default function (config: MainMenu): void {
     const microConfig = getRegisterMicroApps(config);
