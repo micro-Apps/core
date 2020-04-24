@@ -33,7 +33,7 @@ export const renderMicroApp: RenderMicroApp =  function (params) {
     const { appContent, loading } = params;
     const targetElement: Element = document.getElementById('content');
 
-    if (typeof appContent === 'string') {
+    if (typeof appContent === 'string' && appContent) {
         ReactDom.render(<ContainerApp loading={loading} appContent={appContent} />, targetElement);
     }
 }

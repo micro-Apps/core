@@ -32,15 +32,13 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
             renderChildren = !!props.children;
         }
 
+        console.log('渲染子应用', renderChildren);
+
         return  (
             <>
                 <Breadcrumb style={{ margin: '16px 0' }}>{breadcrumb}</Breadcrumb>
                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                    <div id="content">
-                        {
-                            renderChildren ? (props.children) : false
-                        }
-                    </div>
+                    {renderChildren ? props.children : <div id="content"/>}
                 </div>
             </>
         );

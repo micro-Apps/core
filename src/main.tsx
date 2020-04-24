@@ -69,20 +69,21 @@ function useConfig() {
 }
 
 const useMicroApp = (config: GlobalConfig, props: RouteComponentProps) => {
-    const [needRedirect404, setNeedRedirect] = useState(false);
+    const [needRedirect404, setNeedRedirect404] = useState(false);
     const [needRedirect500, setNeedRedirect500] = useState(false);
 
     useEffect(() => {
         if (!config) return;
         if (isNeedLoadEmpty(config.menu)) {
-            setNeedRedirect(true);
+            setNeedRedirect404(true);
         };
         props.history.listen(() => {
+            // TODO: 需要保证页面首先刷新出content container容器，然后调用注册的子应用进行渲染
             setNeedRedirect500(false);
             if (isNeedLoadEmpty(config.menu) && window.location.pathname !== '/404') {
-                setNeedRedirect(true);
+                setNeedRedirect404(true);
             } else {
-                setNeedRedirect(false);
+                setNeedRedirect404(false);
             }
         });
     }, [config]);
@@ -95,7 +96,7 @@ const useMicroApp = (config: GlobalConfig, props: RouteComponentProps) => {
             } else {
                 setNeedRedirect500(false);
             }
-        }
+        };
         addGlobalUncaughtErrorHandler(handleMicroError)
         return () => {
             removeGlobalUncaughtErrorHandler(handleMicroError);
@@ -123,7 +124,6 @@ function useRouterState() {
     }
 }
 
-// TODO: 子应用报错情况处理
 const Main: React.FunctionComponent<RouteComponentProps> = props => {
     const config = useConfig();
     const { needRedirect404, needRedirect500 } = useMicroApp(config, props);
