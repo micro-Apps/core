@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import ReactDom from "react-dom";
 import { Skeleton, Breadcrumb } from 'antd';
+import NoFoundPage from '@components/NotFoundPage';
 
 export interface Micro {
     appContent: string | ReactElement;
@@ -34,7 +35,5 @@ export const renderMicroApp: RenderMicroApp =  function (params) {
 
     if (typeof appContent === 'string') {
         ReactDom.render(<ContainerApp loading={loading} appContent={appContent} />, targetElement);
-    } else {
-        ReactDom.render(<>{appContent}</>, targetElement);
     }
 }

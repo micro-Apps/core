@@ -22,7 +22,7 @@ export default function (config: MainMenu): void {
     registerMicroApps(microConfig);
     addGlobalUncaughtErrorHandler((event: any) => {
         if (event.type === 'error') {
-            window.history.pushState({}, '', '/error');
+            // window.history.pushState({}, '', '/error');
         }
     });
     start();

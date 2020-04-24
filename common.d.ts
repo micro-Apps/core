@@ -8,27 +8,3 @@ declare module "@loadable/component" {
     export default loadable;
 }
 
-declare module "qiankun" {
-    interface RenderParams {
-        appContent: string;
-        loading: boolean;
-    }
-    export interface MicroAppProp {
-        name: string;
-        entry: string | { html?: string, scripts: string[], styles: string[]};
-        render: (params: RenderParams) => void;
-        activeRule: (params: any) => boolean;
-    }
-    
-    type EffectFunction = (app: string) => any;
-    
-    interface RegisterMicroAppsConfig {
-        beforeLoad: EffectFunction[];
-        beforeMount: EffectFunction[];
-        afterUnmount: EffectFunction[];
-    }
-    
-    export const start: () => void;
-    export const registerMicroApps: (microAppProps: MicroAppProp[], config?: RegisterMicroAppsConfig) => void;
-    
-}

@@ -9,6 +9,10 @@ import registeredMicroApps, { isNeedLoadEmpty } from './loadMicroApp/registerMic
 import { getConfig } from './service';
 import { RouteComponentProps, Redirect, withRouter } from 'react-router-dom';
 
+import NotFoundPage from "@components/NotFoundPage";
+import ErrorPage from "@components/ErrorPage";
+import { addGlobalUncaughtErrorHandler, removeGlobalUncaughtErrorHandler, registerMicroApps } from 'qiankun';
+
 function transform(config: ConfigDto):GlobalConfig {
     let defaultEntity = '';
     const setDefaultEntity = (entity: string): void => {
@@ -59,7 +63,6 @@ function useConfig() {
             const response = await getConfig('baidu');
             const globalConfig = transform(response);
             setConfig(globalConfig);
-            registeredMicroApps(globalConfig.menu);
         })();
     }, []);
     return config;
@@ -67,12 +70,15 @@ function useConfig() {
 
 const useMicroApp = (config: GlobalConfig, props: RouteComponentProps) => {
     const [needRedirect404, setNeedRedirect] = useState(false);
+    const [needRedirect500, setNeedRedirect500] = useState(false);
+
     useEffect(() => {
         if (!config) return;
         if (isNeedLoadEmpty(config.menu)) {
             setNeedRedirect(true);
         };
         props.history.listen(() => {
+            setNeedRedirect500(false);
             if (isNeedLoadEmpty(config.menu) && window.location.pathname !== '/404') {
                 setNeedRedirect(true);
             } else {
@@ -81,7 +87,33 @@ const useMicroApp = (config: GlobalConfig, props: RouteComponentProps) => {
         });
     }, [config]);
 
-    return needRedirect404;
+    useEffect(() => {
+        if (!config) {return};
+        const handleMicroError: OnErrorEventHandlerNonNull = function (event) {
+            if (event.type === 'error') {
+                setNeedRedirect500(true);
+            } else {
+                setNeedRedirect500(false);
+            }
+        }
+        addGlobalUncaughtErrorHandler(handleMicroError)
+        return () => {
+            removeGlobalUncaughtErrorHandler(handleMicroError);
+        }
+    }, [config])
+
+
+    useEffect(() => {
+        if (!config) { return }
+        setTimeout(() => {
+            registeredMicroApps(config.menu)
+        }, 0);
+    }, [config])
+
+    return {
+        needRedirect404,
+        needRedirect500,
+    };
 }
 
 function useRouterState() {
@@ -94,21 +126,22 @@ function useRouterState() {
 // TODO: 子应用报错情况处理
 const Main: React.FunctionComponent<RouteComponentProps> = props => {
     const config = useConfig();
-    const needRedirect404 = useMicroApp(config, props);
-    const { is404Page, isMainPage } = useRouterState();
+    const { needRedirect404, needRedirect500 } = useMicroApp(config, props);
+    const { isMainPage } = useRouterState();
 
     if (!config) return (<></>);
 
     return (
         <>
-            {needRedirect404 && <Redirect to="/404" />}
             {isMainPage && <Redirect to={config.defaultEntity}/>}
             <BasicLayout
                 menu={<CommonMenu menuConfig={config.menu} logo={config.logo} name={config.name}/>}
                 header={<GlobalHeader />}
                 breadcrumb={<CommonBread />}
-            />
-            
+            >
+                {needRedirect404 && <NotFoundPage />}
+                {needRedirect500 && <ErrorPage />}
+            </BasicLayout>
         </>
     );
 };
