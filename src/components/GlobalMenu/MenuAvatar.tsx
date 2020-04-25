@@ -4,15 +4,15 @@ import { GlobalContext } from 'src/context/common-context';
 
 const MenuLogo: React.FC<{
     src: string;
-}> = ({ src }) => {
+    name: string;
+}> = ({ src, name }) => {
     const { config } = useContext(GlobalContext);
-
     return (<div className={styles.menuLogo}>
         <i className={styles.logoContainer}>
             <img src={src} alt=""/>
         </i>
         {
-            !config.collapsed &&  <span>支付宝</span>
+            !config.collapsed && name &&  <span>{name}</span>
         }
     </div>
 )

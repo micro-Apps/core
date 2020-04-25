@@ -47,7 +47,7 @@ const CommonMenu: React.FC<{
     logo: string;
     name: string;
 }> = (props) => {
-    const { menuConfig, logo } = props;
+    const { menuConfig, logo, name } = props;
     const SubMenu = menuConfig.subMenu;
     const {
         currentSubMenuKey,
@@ -60,11 +60,11 @@ const CommonMenu: React.FC<{
     useMemo(() => {
         change([currentSubMenuTitle, currentSubMenuOptionsTitle]);
     }, [currentSubMenuOptionsTitle, currentSubMenuTitle]);
-    
+
     return (
         <div className="menu-container">
             <div className="menu-container-inner">
-                <MenuLogo src={logo}/>
+                <MenuLogo src={logo} name={name}/>
                 <Menu
                     defaultOpenKeys={[currentSubMenuKey]}
                     defaultSelectedKeys={[currentSubMenuOptionsKey]}
