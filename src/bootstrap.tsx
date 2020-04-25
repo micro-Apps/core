@@ -17,16 +17,16 @@ const MainApp: React.FunctionComponent = props => {
 
     return  (
         <GlobalContext.Provider value={{...RouterContextValue, ...globalContextValue }}>
-        <Router>
-            <Switch>
-                <Route path="/login" component={LoginPage}/>
-                <Route path="/">
-                    <Authorized author={["ADMIN"]}>
-                        <Main />
-                    </Authorized>
-                </Route>
-            </Switch>
-        </Router>
+            <Router>
+                <Switch>
+                    <Route path="/login" component={LoginPage}/>
+                    <Route path="/">
+                        <Authorized author={["ADMIN"]}>
+                            <Main />
+                        </Authorized>
+                    </Route>
+                </Switch>
+            </Router>
         </GlobalContext.Provider>
     );
 }

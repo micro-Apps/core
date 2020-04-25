@@ -7,6 +7,7 @@ import { GlobalContext } from '../../context/common-context';
 import { getCurrentSelectKeysAndDefaultOpenKey } from "./utils/dealMenuConfig";
 import MenuLogo from './MenuAvatar';
 import { AppstoreOutlined } from "@ant-design/icons";
+import { withRouter } from "react-router-dom";
 
 
 const SubMenuComponent = Menu.SubMenu;
@@ -18,7 +19,9 @@ const CreateSubMenuOptions = (config?: SubMenuOption[], SubMenuTitle?: string): 
         const config = SubMenuOption.config;
         return () => {
             change([SubMenuTitle, SubMenuOptionTitle]);
-            window.history.pushState({}, config.name, config.path)
+            setTimeout(() => {
+                window.history.pushState({}, config.name, config.path)
+            }, 0);
         };
     };
     return config.map(SubMenuOption => (
