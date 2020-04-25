@@ -1,7 +1,6 @@
 import React, { ReactElement } from "react";
 import ReactDom from "react-dom";
-import { Skeleton, Breadcrumb } from 'antd';
-import NoFoundPage from '@components/NotFoundPage';
+import { Skeleton } from 'antd';
 
 export interface Micro {
     appContent: string | ReactElement;

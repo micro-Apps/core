@@ -78,7 +78,7 @@ const useMicroApp = (config: GlobalConfig, props: RouteComponentProps) => {
             setNeedRedirect404(true);
         };
         props.history.listen(() => {
-            // TODO: 需要保证页面首先刷新出content container容器，然后调用注册的子应用进行渲染
+            // TODO: 需要保证页面首先刷新出content container容器，然后调用注册的子应用进行渲染，目前的逻辑有几率触发错误
             setNeedRedirect500(false);
             if (isNeedLoadEmpty(config.menu) && window.location.pathname !== '/404') {
                 setNeedRedirect404(true);
@@ -91,11 +91,7 @@ const useMicroApp = (config: GlobalConfig, props: RouteComponentProps) => {
     useEffect(() => {
         if (!config) {return};
         const handleMicroError: OnErrorEventHandlerNonNull = function (event) {
-            if (event.type === 'error') {
-                setNeedRedirect500(true);
-            } else {
-                setNeedRedirect500(false);
-            }
+            if (event.type === 'error') setNeedRedirect500(true);
         };
         addGlobalUncaughtErrorHandler(handleMicroError)
         return () => {

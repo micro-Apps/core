@@ -20,8 +20,8 @@ function getCurrentBreadcrumbTitle(menuConfig: MainMenu, currentSelectIndex: Cur
     const { subMenuIndex, subMenuOptionsIndex } = currentSelectIndex;
     const subMenu = menuConfig.subMenu;
     return {
-        currentSubMenuTitle: subMenu[subMenuIndex].title,
-        currentSubMenuOptionsTitle: subMenu[subMenuIndex].options[subMenuOptionsIndex].title,
+        currentSubMenuTitle: subMenuIndex >= 0 ? subMenu[subMenuIndex].title : '',
+        currentSubMenuOptionsTitle: (subMenuIndex >= 0 && subMenuOptionsIndex >= 0) ? subMenu[subMenuIndex].options[subMenuOptionsIndex].title : '',
     }
 }
 
@@ -30,12 +30,13 @@ function getCurrentSelectKeys(menuConfig: MainMenu, currentSelectIndex: CurrentS
     const { subMenuIndex, subMenuOptionsIndex } = currentSelectIndex;
     const subMenu = menuConfig.subMenu;
     return {
-        currentSubMenuKey: subMenu[subMenuIndex].key,
-        currentSubMenuOptionsKey: subMenu[subMenuIndex].options[subMenuOptionsIndex].key,
+        currentSubMenuKey: subMenuIndex >= 0 ? subMenu[subMenuIndex].key : '',
+        currentSubMenuOptionsKey: (subMenuIndex >= 0 && subMenuOptionsIndex >= 0) ? subMenu[subMenuIndex].options[subMenuOptionsIndex].key : '',
     }
 }
 
 type GetCurrentSelectKeysAndDefaultOpenKey = (menuConfig: MainMenu) => CurrentBreadcrumbTitle & CurrentSelectKeys;
+
 export const getCurrentSelectKeysAndDefaultOpenKey:GetCurrentSelectKeysAndDefaultOpenKey = function (menuConfig) {
     let subMenuIndex = 0;
     let subMenuOptionsIndex = 0;
@@ -56,12 +57,13 @@ export const getCurrentSelectKeysAndDefaultOpenKey:GetCurrentSelectKeysAndDefaul
         subMenuOptionsIndex++;
     }
 
-    // TODO: 路由对应错误处理
     if (!isExist) {
-        subMenuIndex = 0;
-        subMenuOptionsIndex = 0;
+        subMenuIndex = -1;
+        subMenuOptionsIndex = -1;
     }
 
+
+    // TODO：路由支持多级，面包屑导航支持多级
     return {
         ...getCurrentSelectKeys(menuConfig, { subMenuIndex, subMenuOptionsIndex }),
         ...getCurrentBreadcrumbTitle(menuConfig, { subMenuIndex, subMenuOptionsIndex }),

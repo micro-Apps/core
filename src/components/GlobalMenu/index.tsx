@@ -6,9 +6,11 @@ import './styles/index.less';
 import { RouterContext } from '../../router-context';
 import { getCurrentSelectKeysAndDefaultOpenKey } from "./utils/dealMenuConfig";
 import MenuLogo from './MenuAvatar';
+import { AppstoreOutlined } from "@ant-design/icons";
 
 
 const SubMenuComponent = Menu.SubMenu;
+
 const CreateSubMenuOptions = (config?: SubMenuOption[], SubMenuTitle?: string): React.ReactNode[] => {
     if (!config) return null;
     const { change } = useContext(RouterContext);
@@ -30,6 +32,7 @@ const CreateSubMenu = (config: SubMenu[]): React.ReactNode[] => {
             key={SubMenuConfig.key}
             title={
                 <span>
+                    <AppstoreOutlined />
                     <span>{SubMenuConfig.title}</span>
                 </span>
             }
@@ -58,6 +61,7 @@ const CommonMenu: React.FC<{
         change([currentSubMenuTitle, currentSubMenuOptionsTitle]);
     }, [currentSubMenuOptionsTitle, currentSubMenuTitle]);
     
+    console.log(currentSubMenuKey, currentSubMenuOptionsKey);
     return (
         <div className="menu-container">
             <div className="menu-container-inner">
@@ -80,10 +84,11 @@ const CommonMenu: React.FC<{
 export const CommonBread: React.FC = () => {
     const { value } = useContext(RouterContext);
     return (
-        <>
+        <div style={{minHeight: '7px'}}>
             <Breadcrumb.Item>{value[0]}</Breadcrumb.Item>
             <Breadcrumb.Item>{value[1]}</Breadcrumb.Item>
-        </>
+        </div>
     )
 }
+
 export default CommonMenu;
