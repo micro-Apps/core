@@ -2,7 +2,6 @@ import { Button, Result } from 'antd';
 import React from 'react';
 import { BrowserRouter, withRouter, RouteComponentProps } from 'react-router-dom';
 
-// TODO: 支持路由跳转 和 重定位
 const NoFoundPage: React.FunctionComponent<RouteComponentProps> =props => {
   return (
     <Result
@@ -10,7 +9,7 @@ const NoFoundPage: React.FunctionComponent<RouteComponentProps> =props => {
       title="404"
       subTitle="Sorry, the page you visited does not exist."
       extra={
-        <Button type="primary" onClick={() => props.history.goBack()}>
+        <Button type="primary" onClick={() => props.history.push('/')}>
           Back Home
         </Button>
       }

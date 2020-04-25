@@ -30,7 +30,7 @@ const Login: React.FC<RouteComponentProps> = props => {
         return;
       }
     }
-    // TODO: 防止重复加载
+    // TODO: 防止重复加载, 不需要重新加载渲染
     window.location.href = '/';
     // props.history.replace(redirect || '/');
   };
