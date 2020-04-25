@@ -72,7 +72,8 @@ const UserAvatar: React.FC<{
             <Notification />
             <UserAvatarContainer>
                 <div className={styles.userAvatarContainer}>
-                    <i className={styles.userAvatarName}><Avatar size="default">G</Avatar></i>
+                    <Avatar size="small" src="https://tse2-mm.cn.bing.net/th/id/OIP.4tQRVuvWoRSgJ4_atKsmQQAAAA?w=170&h=170&c=7&o=5&pid=1.7"></Avatar>
+                    <span className={styles.userAvatarName}>Genluo</span>
                 </div>
             </UserAvatarContainer>
         </>
