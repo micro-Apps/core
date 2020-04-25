@@ -12,11 +12,11 @@ import {
 } from "react-router-dom";
 
 const MainApp: React.FunctionComponent = props => {
-    const RouterContextValue = useRouterContext();
+    const RouterInfoContextValue = useRouterContext();
     const globalContextValue = useGlobalConfigContext();
 
     return  (
-        <GlobalContext.Provider value={{...RouterContextValue, ...globalContextValue }}>
+        <GlobalContext.Provider value={{...RouterInfoContextValue, ...globalContextValue }}>
             <Router>
                 <Switch>
                     <Route path="/login" component={LoginPage}/>

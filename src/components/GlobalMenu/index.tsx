@@ -1,24 +1,27 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useEffect } from "react";
 import { Menu, Breadcrumb } from "antd";
 import { SubMenu, SubMenuOption } from './menuConfig.interface';
 import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
 import './styles/index.less';
 import { GlobalContext } from '../../context/common-context';
-import { getCurrentSelectKeysAndDefaultOpenKey } from "./utils/dealMenuConfig";
+import { getCurrentSelectKeysAndDefaultOpenKey, CurrentSelectInfo } from "./utils/dealMenuConfig";
 import MenuLogo from './MenuAvatar';
 import { AppstoreOutlined } from "@ant-design/icons";
-import { withRouter } from "react-router-dom";
-
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
 const SubMenuComponent = Menu.SubMenu;
 
+
 const CreateSubMenuOptions = (config?: SubMenuOption[], SubMenuTitle?: string): React.ReactNode[] => {
     if (!config) return null;
-    const { change } = useContext(GlobalContext);
+    const { routerChange } = useContext(GlobalContext);
     const clickItem = (SubMenuOption: SubMenuOption, SubMenuOptionTitle: string) => {
         const config = SubMenuOption.config;
         return () => {
-            change([SubMenuTitle, SubMenuOptionTitle]);
+            routerChange({
+                currentSubMenuTitle: SubMenuTitle,
+                currentSubMenuOptionsTitle: SubMenuOptionTitle,
+            });
             setTimeout(() => {
                 window.history.pushState({}, config.name, config.path)
             }, 0);
@@ -45,32 +48,47 @@ const CreateSubMenu = (config: SubMenu[]): React.ReactNode[] => {
     ))
 }
 
+function useRouterInfo(props: RouteComponentProps, mainMenu: MainMenu) {
+    const { routerInfo, routerChange } = useContext(GlobalContext);
+
+    useEffect(() => {
+        if (!mainMenu) return;
+        props.history.listen(() => {
+            const info = getCurrentSelectKeysAndDefaultOpenKey(mainMenu);
+            routerChange(info);
+        });
+        const info = getCurrentSelectKeysAndDefaultOpenKey(mainMenu);
+        routerChange(info);
+    }, [mainMenu]);
+
+    return {
+        routerInfo,
+    }
+}
+
 const CommonMenu: React.FC<{
     menuConfig: MainMenu;
     logo: string;
     name: string;
-}> = (props) => {
+} & RouteComponentProps> = (props) => {
     const { menuConfig, logo, name } = props;
     const SubMenu = menuConfig.subMenu;
+
     const {
+        routerInfo: {
         currentSubMenuKey,
         currentSubMenuOptionsKey,
-        currentSubMenuOptionsTitle,
-        currentSubMenuTitle,
-    } = getCurrentSelectKeysAndDefaultOpenKey(menuConfig);
-    const { change } = useContext(GlobalContext);
-    
-    useMemo(() => {
-        change([currentSubMenuTitle, currentSubMenuOptionsTitle]);
-    }, [currentSubMenuOptionsTitle, currentSubMenuTitle]);
+       }
+    } = useRouterInfo(props, menuConfig);
+
 
     return (
         <div className="menu-container">
             <div className="menu-container-inner">
                 <MenuLogo src={logo} name={name}/>
                 <Menu
-                    defaultOpenKeys={[currentSubMenuKey]}
-                    defaultSelectedKeys={[currentSubMenuOptionsKey]}
+                    openKeys={[currentSubMenuKey]}
+                    selectedKeys={[currentSubMenuOptionsKey]}
                     mode="inline"
                     theme="light"
                 >
@@ -83,13 +101,17 @@ const CommonMenu: React.FC<{
 
 // TODO: Breadcrumb渲染，使用context进行路由的控制
 export const CommonBread: React.FC = () => {
-    const { value } = useContext(GlobalContext);
+    const { routerInfo: {
+        currentSubMenuTitle,
+        currentSubMenuOptionsTitle,
+    } } = useContext(GlobalContext);
+
     return (
         <div style={{minHeight: '7px'}}>
-            <Breadcrumb.Item>{value[0]}</Breadcrumb.Item>
-            <Breadcrumb.Item>{value[1]}</Breadcrumb.Item>
+            <Breadcrumb.Item>{currentSubMenuTitle}</Breadcrumb.Item>
+            <Breadcrumb.Item>{currentSubMenuOptionsTitle}</Breadcrumb.Item>
         </div>
     )
 }
-
-export default CommonMenu;
+// BUG: 如果路由变动，不会导致菜单对应进行变动
+export default withRouter(CommonMenu);

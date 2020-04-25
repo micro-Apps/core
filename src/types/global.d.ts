@@ -62,3 +62,11 @@ export interface GlobalCommonConfig {
     theme: 'light' | 'dark',
     collapsed: boolean,
 }
+
+
+export interface RouterInfo {
+    currentSubMenuTitle: string;
+    currentSubMenuOptionsTitle: string;
+    currentSubMenuKey: string;
+    currentSubMenuOptionsKey: string;
+}

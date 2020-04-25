@@ -4,4 +4,3 @@ export const defaultGlobalCommonConfig: GlobalCommonConfig = {
     theme: 'light',
     collapsed: false,
 };
-

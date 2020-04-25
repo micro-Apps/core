@@ -35,7 +35,8 @@ function getCurrentSelectKeys(menuConfig: MainMenu, currentSelectIndex: CurrentS
     }
 }
 
-type GetCurrentSelectKeysAndDefaultOpenKey = (menuConfig: MainMenu) => CurrentBreadcrumbTitle & CurrentSelectKeys;
+export type CurrentSelectInfo = CurrentBreadcrumbTitle & CurrentSelectKeys;
+export type GetCurrentSelectKeysAndDefaultOpenKey = (menuConfig: MainMenu) => CurrentSelectInfo;
 
 export const getCurrentSelectKeysAndDefaultOpenKey:GetCurrentSelectKeysAndDefaultOpenKey = function (menuConfig) {
     let subMenuIndex = 0;
