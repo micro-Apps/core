@@ -61,17 +61,15 @@ const CommonMenu: React.FC<{
         change([currentSubMenuTitle, currentSubMenuOptionsTitle]);
     }, [currentSubMenuOptionsTitle, currentSubMenuTitle]);
     
-    console.log(currentSubMenuKey, currentSubMenuOptionsKey);
     return (
         <div className="menu-container">
             <div className="menu-container-inner">
                 <MenuLogo src={logo}/>
                 <Menu
-                    style={{ width: 256 }}
                     defaultOpenKeys={[currentSubMenuKey]}
                     defaultSelectedKeys={[currentSubMenuOptionsKey]}
                     mode="inline"
-                    theme="dark"
+                    theme="light"
                 >
                     {CreateSubMenu(SubMenu)}
                 </Menu>

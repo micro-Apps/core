@@ -48,10 +48,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
                 collapsible
                 collapsed={collapseState}
                 onCollapse={toggleCollapsed}
+                theme="light"
                 style={{
-                    overflow: 'auto',
-                    height: '100vh',
-                    left: 0,
+                    boxShadow: '0px 0px 8px #ccc'
                 }}
             >
                 {menu}
