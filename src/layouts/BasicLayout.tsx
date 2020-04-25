@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Layout, Breadcrumb } from 'antd';
 import { isArray } from "util";
+import { GlobalContext } from "src/context/common-context";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -11,11 +12,13 @@ interface BasicLayoutProps {
 }
 
 function useToggleCollapsed(): [boolean, () => void] {
-    const [state, changeState] = useState(false);
+    const { config, configChange } = useContext(GlobalContext);
     const toggleCollapsed = () => {
-        changeState(!state);
+        configChange({
+            collapsed: !config.collapsed,
+        });
     };
-    return [state, toggleCollapsed];
+    return [config.collapsed, toggleCollapsed];
 };
 
 const BasicLayout: React.FC<BasicLayoutProps> = (props) => {

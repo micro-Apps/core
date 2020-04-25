@@ -3,7 +3,7 @@ import BasicLayout from "@layouts/BasicLayout";
 import CommonMenu, { CommonBread } from "@components/GlobalMenu";
 import { SubMenu, SubMenuOption } from "@components/GlobalMenu/menuConfig.interface";
 import GlobalHeader from '@components/GlobalHeader';
-import { GlobalConfig, ConfigDto, OptionsDto } from './global.config.interface';
+import { GlobalDataConfig, ConfigDto, OptionsDto } from './types/global';
 
 import registeredMicroApps, { isNeedLoadEmpty } from './loadMicroApp/registerMicroApps';
 import { getConfig } from './service';
@@ -13,7 +13,7 @@ import NotFoundPage from "@components/NotFoundPage";
 import ErrorPage from "@components/ErrorPage";
 import { addGlobalUncaughtErrorHandler, removeGlobalUncaughtErrorHandler, registerMicroApps } from 'qiankun';
 
-function transform(config: ConfigDto):GlobalConfig {
+function transform(config: ConfigDto):GlobalDataConfig {
     let defaultEntity = '';
     const setDefaultEntity = (entity: string): void => {
         if (!defaultEntity) {defaultEntity = entity}
@@ -43,7 +43,7 @@ function transform(config: ConfigDto):GlobalConfig {
         }));
     };
 
-    const menu: GlobalConfig['menu'] = {
+    const menu: GlobalDataConfig['menu'] = {
         mode: 'inline',
         subMenu: transformMenu(config.subMenu),
     }
@@ -57,7 +57,7 @@ function transform(config: ConfigDto):GlobalConfig {
 }
 
 function useConfig() {
-    const [config, setConfig] = useState<GlobalConfig>();
+    const [config, setConfig] = useState<GlobalDataConfig>();
     useEffect(() => {
         (async () => {
             const response = await getConfig('baidu');
@@ -68,7 +68,7 @@ function useConfig() {
     return config;
 }
 
-const useMicroApp = (config: GlobalConfig, props: RouteComponentProps) => {
+const useMicroApp = (config: GlobalDataConfig, props: RouteComponentProps) => {
     const [needRedirect404, setNeedRedirect404] = useState(false);
     const [needRedirect500, setNeedRedirect500] = useState(false);
 

@@ -3,7 +3,7 @@ import { Menu, Breadcrumb } from "antd";
 import { SubMenu, SubMenuOption } from './menuConfig.interface';
 import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
 import './styles/index.less';
-import { RouterContext } from '../../router-context';
+import { GlobalContext } from '../../context/common-context';
 import { getCurrentSelectKeysAndDefaultOpenKey } from "./utils/dealMenuConfig";
 import MenuLogo from './MenuAvatar';
 import { AppstoreOutlined } from "@ant-design/icons";
@@ -13,7 +13,7 @@ const SubMenuComponent = Menu.SubMenu;
 
 const CreateSubMenuOptions = (config?: SubMenuOption[], SubMenuTitle?: string): React.ReactNode[] => {
     if (!config) return null;
-    const { change } = useContext(RouterContext);
+    const { change } = useContext(GlobalContext);
     const clickItem = (SubMenuOption: SubMenuOption, SubMenuOptionTitle: string) => {
         const config = SubMenuOption.config;
         return () => {
@@ -23,7 +23,7 @@ const CreateSubMenuOptions = (config?: SubMenuOption[], SubMenuTitle?: string): 
     };
     return config.map(SubMenuOption => (
         <Menu.Item key={SubMenuOption.key} onClick={clickItem(SubMenuOption, SubMenuOption.title)}>{SubMenuOption.title}</Menu.Item>
-    ))
+    ));
 }
 
 const CreateSubMenu = (config: SubMenu[]): React.ReactNode[] => {
@@ -55,7 +55,7 @@ const CommonMenu: React.FC<{
         currentSubMenuOptionsTitle,
         currentSubMenuTitle,
     } = getCurrentSelectKeysAndDefaultOpenKey(menuConfig);
-    const { change } = useContext(RouterContext);
+    const { change } = useContext(GlobalContext);
     
     useMemo(() => {
         change([currentSubMenuTitle, currentSubMenuOptionsTitle]);
@@ -80,7 +80,7 @@ const CommonMenu: React.FC<{
 
 // TODO: Breadcrumb渲染，使用context进行路由的控制
 export const CommonBread: React.FC = () => {
-    const { value } = useContext(RouterContext);
+    const { value } = useContext(GlobalContext);
     return (
         <div style={{minHeight: '7px'}}>
             <Breadcrumb.Item>{value[0]}</Breadcrumb.Item>

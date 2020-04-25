@@ -1,5 +1,5 @@
 import { request } from '@utils/index';
-import { ConfigDto } from './global.config.interface';
+import { ConfigDto } from './types/global';
 
 export async function getConfig(domain: string): Promise<ConfigDto> {
     const response = await request({

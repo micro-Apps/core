@@ -3,7 +3,7 @@ import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
 /**
  * 路由配置项
  */
-export interface GlobalConfig {
+export interface GlobalDataConfig {
     name: string;
     logo: string;
     defaultEntity: string;
@@ -54,3 +54,11 @@ export interface ConfigDto {
     readonly subMenu: SubMenuDto[];
 }
 
+/**
+ * 应用样式配置
+ */
+
+export interface GlobalCommonConfig {
+    theme: 'light' | 'dark',
+    collapsed: boolean,
+}

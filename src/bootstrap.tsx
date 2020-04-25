@@ -1,23 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NotFoundPage from '@components/NotFoundPage';
 import Authorized from "@components/Authorized";
 import LoginPage from '@pages/Login';
-import { RouterContext, useRouterContext } from './router-context';
+import { GlobalContext, useRouterContext, useGlobalConfigContext } from './context/common-context';
 import Main from "./main";
 
 import {
     BrowserRouter as Router,
     Route,
     Switch,
-    Redirect,
 } from "react-router-dom";
 
 const MainApp: React.FunctionComponent = props => {
     const RouterContextValue = useRouterContext();
+    const globalContextValue = useGlobalConfigContext();
 
     return  (
-        <RouterContext.Provider value={RouterContextValue}>
+        <GlobalContext.Provider value={{...RouterContextValue, ...globalContextValue }}>
         <Router>
             <Switch>
                 <Route path="/login" component={LoginPage}/>
@@ -28,7 +27,7 @@ const MainApp: React.FunctionComponent = props => {
                 </Route>
             </Switch>
         </Router>
-        </RouterContext.Provider>
+        </GlobalContext.Provider>
     );
 }
 
