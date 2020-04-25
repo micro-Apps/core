@@ -44,7 +44,7 @@ export const getCurrentSelectKeysAndDefaultOpenKey:GetCurrentSelectKeysAndDefaul
     let isExist = false;
 
     for (const subMenuConfig  of menuConfig.subMenu) {
-        subMenuIndex = 0;
+        subMenuOptionsIndex = 0;
         for (const subMenuOptions of subMenuConfig.options) {
             if (subMenuOptions.config.path ) {
                 if (genActiveRule(subMenuOptions.config.path)(location)) {
@@ -56,13 +56,13 @@ export const getCurrentSelectKeysAndDefaultOpenKey:GetCurrentSelectKeysAndDefaul
         }
         if (isExist) { break }
         subMenuOptionsIndex++;
+        subMenuIndex++;
     }
 
     if (!isExist) {
         subMenuIndex = -1;
         subMenuOptionsIndex = -1;
     }
-
 
     // TODO：路由支持多级，面包屑导航支持多级
     return {

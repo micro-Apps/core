@@ -3,7 +3,6 @@ import UserAvatar from './UserAvatar';
 
 import styles from './styles/index.less';
 
-
 type GlobalHeader = React.FC;
 
 const GlobalHeader: GlobalHeader = function GlobalHeader() {

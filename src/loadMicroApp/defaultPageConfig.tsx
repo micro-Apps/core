@@ -1,8 +1,8 @@
 import React from 'react';
+import { MicroAppProp } from "qiankun";
 import { renderToString } from "react-dom/server";
 import { genActiveRule } from "./activeRule";
 import { renderMicroApp } from "./render";
-import { MicroAppProp } from "qiankun";
 import NoFoundPage from '@components/NotFoundPage';
 import ErrorPage from '@components/ErrorPage';
 
