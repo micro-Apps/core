@@ -1,16 +1,16 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import { Menu, Breadcrumb } from "antd";
 import { SubMenu, SubMenuOption } from './menuConfig.interface';
 import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
-import './styles/index.less';
 import { GlobalContext } from '../../context/common-context';
-import { getCurrentSelectKeysAndDefaultOpenKey, CurrentSelectInfo } from "./utils/dealMenuConfig";
+import { getCurrentSelectKeysAndDefaultOpenKey } from "./utils/dealMenuConfig";
 import MenuLogo from './MenuAvatar';
 import { AppstoreOutlined } from "@ant-design/icons";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 
-const SubMenuComponent = Menu.SubMenu;
+import './styles/index.less';
 
+const SubMenuComponent = Menu.SubMenu;
 
 const CreateSubMenuOptions = (config?: SubMenuOption[], SubMenuTitle?: string): React.ReactNode[] => {
     if (!config) return null;
@@ -33,6 +33,8 @@ const CreateSubMenuOptions = (config?: SubMenuOption[], SubMenuTitle?: string): 
 }
 
 const CreateSubMenu = (config: SubMenu[]): React.ReactNode[] => {
+    const { routerChange } = useContext(GlobalContext);
+
     return config.map((SubMenuConfig) => (
         <SubMenuComponent
             key={SubMenuConfig.key}
@@ -42,6 +44,7 @@ const CreateSubMenu = (config: SubMenu[]): React.ReactNode[] => {
                     <span>{SubMenuConfig.title}</span>
                 </span>
             }
+            onTitleClick={() => {routerChange({currentSubMenuKey: SubMenuConfig.key})}}
         >
             {CreateSubMenuOptions(SubMenuConfig.options, SubMenuConfig.title)}
         </SubMenuComponent>
@@ -81,12 +84,13 @@ const CommonMenu: React.FC<{
        }
     } = useRouterInfo(props, menuConfig);
 
-
     return (
         <div className="menu-container">
             <div className="menu-container-inner">
                 <MenuLogo src={logo} name={name}/>
                 <Menu
+                    defaultOpenKeys={[currentSubMenuKey]}
+                    defaultSelectedKeys={[currentSubMenuOptionsKey]}
                     openKeys={[currentSubMenuKey]}
                     selectedKeys={[currentSubMenuOptionsKey]}
                     mode="inline"
@@ -99,7 +103,6 @@ const CommonMenu: React.FC<{
     )
 };
 
-// TODO: Breadcrumb渲染，使用context进行路由的控制
 export const CommonBread: React.FC = () => {
     const { routerInfo: {
         currentSubMenuTitle,
@@ -113,5 +116,5 @@ export const CommonBread: React.FC = () => {
         </div>
     )
 }
-// BUG: 如果路由变动，不会导致菜单对应进行变动
+
 export default withRouter(CommonMenu);

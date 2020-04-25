@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Layout, Breadcrumb } from 'antd';
 import { isArray } from "util";
 import { GlobalContext } from "src/context/common-context";
@@ -39,7 +39,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
             <>
                 <Breadcrumb style={{ margin: '16px 0' }}>{breadcrumb}</Breadcrumb>
                 <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                    {renderChildren ? props.children : <div id="content"/>}
+                    {props.children}
+                    {<div id="content" style={{display: renderChildren ? 'none' : 'block'}}/>}
                 </div>
             </>
         );

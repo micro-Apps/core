@@ -11,7 +11,7 @@ import { RouteComponentProps, Redirect, withRouter } from 'react-router-dom';
 
 import NotFoundPage from "@components/NotFoundPage";
 import ErrorPage from "@components/ErrorPage";
-import { addGlobalUncaughtErrorHandler, removeGlobalUncaughtErrorHandler, registerMicroApps } from 'qiankun';
+import { addGlobalUncaughtErrorHandler, removeGlobalUncaughtErrorHandler } from 'qiankun';
 
 function transform(config: ConfigDto):GlobalDataConfig {
     let defaultEntity = '';
@@ -78,7 +78,7 @@ const useMicroApp = (config: GlobalDataConfig, props: RouteComponentProps) => {
             setNeedRedirect404(true);
         };
         props.history.listen(() => {
-            // TODO: 需要保证页面首先刷新出content container容器，然后调用注册的子应用进行渲染，目前的逻辑有几率触发错误
+            // BUG: 需要保证页面首先刷新出content container容器，然后调用注册的子应用进行渲染，目前的逻辑有几率触发错误
             setNeedRedirect500(false);
             if (isNeedLoadEmpty(config.menu) && window.location.pathname !== '/404') {
                 setNeedRedirect404(true);
@@ -91,7 +91,10 @@ const useMicroApp = (config: GlobalDataConfig, props: RouteComponentProps) => {
     useEffect(() => {
         if (!config) {return};
         const handleMicroError: OnErrorEventHandlerNonNull = function (event) {
-            if (event.type === 'error') setNeedRedirect500(true);
+            if (event.type === 'error') {
+                // BUG: 错误处理太简单，首先需要容器进行拦截
+                setNeedRedirect500(true);
+            }
         };
         addGlobalUncaughtErrorHandler(handleMicroError)
         return () => {

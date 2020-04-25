@@ -1,4 +1,4 @@
-import { registerMicroApps, start, addGlobalUncaughtErrorHandler } from 'qiankun';
+import { registerMicroApps, start } from 'qiankun';
 import { MainMenu } from '@components/GlobalMenu/menuConfig.interface';
 import { getRegisterMicroApps } from "./dealConfig";
 
@@ -20,10 +20,6 @@ export function isNeedLoadEmpty(menu: MainMenu) {
 export default function (config: MainMenu): void {
     const microConfig = getRegisterMicroApps(config);
     registerMicroApps(microConfig);
-    addGlobalUncaughtErrorHandler((event: any) => {
-        if (event.type === 'error') {
-            // window.history.pushState({}, '', '/error');
-        }
-    });
-    start();
+    // BUG: 子应用卸载之后的 setTimeout事件需要进行清除
+    start({singular: true});
 }

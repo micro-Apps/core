@@ -1,14 +1,7 @@
 import React, { ReactElement } from "react";
 import ReactDom from "react-dom";
-import { Skeleton } from 'antd';
-
-export interface Micro {
-    appContent: string | ReactElement;
-    loading: boolean;
-}
-
-export type RenderMicroApp = (params: Micro) => void;
-
+import { Skeleton, Spin } from 'antd';
+import { HTMLContentRender } from "qiankun";
 
 const ContainerApp: React.FunctionComponent<{
     loading: boolean;
@@ -17,18 +10,13 @@ const ContainerApp: React.FunctionComponent<{
     const { loading, appContent } = props;
 
     return (
-        <>
-            {loading ? <Skeleton active/> : null}
-            <div dangerouslySetInnerHTML={{ __html: appContent }} />
-        </>
+        <Spin spinning={loading}>
+            <div style={{minHeight: '200px'}} dangerouslySetInnerHTML={{ __html: appContent }} />
+        </Spin>
     )
 }
 
-/**
- * 
- * @param params 需要加载的子应用内容
- */
-export const renderMicroApp: RenderMicroApp =  function (params) {
+export const renderMicroApp: HTMLContentRender =  function (params) {
     const { appContent, loading } = params;
     const targetElement: Element = document.getElementById('content');
 
