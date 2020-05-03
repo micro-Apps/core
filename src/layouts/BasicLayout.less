@@ -1,0 +1,22 @@
+.container {
+    padding: 24px;
+    min-height: 360px;
+    background: #ffffff;
+    border-radius: 3px;
+    overflow: hidden;
+    .children {
+        width: 100%;
+        background: #ffffff;
+        float: left;
+    }
+    .content {
+        background: #ffffff;
+        float: left;
+        margin-left: -100%;
+        visibility: hidden;
+    }
+    .content-active {
+        margin-left: 0;
+        visibility: visible;
+    }
+}

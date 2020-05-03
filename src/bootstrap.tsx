@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Authorized from "@components/Authorized";
 import LoginPage from '@pages/Login';
-import { GlobalContext, useRouterContext, useGlobalConfigContext } from './context/common-context';
 import Main from "./main";
+import { GlobalContext, useRouterContext, useGlobalConfigContext } from './context/common-context';
 
 import {
     BrowserRouter as Router,
@@ -32,7 +32,7 @@ const MainApp: React.FunctionComponent = props => {
 }
 
 function bootstrapMainApp(): void {
-    const mainContainer: Element = document.getElementById('main');
+    const mainContainer = document.getElementById('main');
     ReactDOM.render(<MainApp />, mainContainer);
 }
 

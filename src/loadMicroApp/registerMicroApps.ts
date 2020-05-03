@@ -20,6 +20,6 @@ export function isNeedLoadEmpty(menu: MainMenu) {
 export default function (config: MainMenu): void {
     const microConfig = getRegisterMicroApps(config);
     registerMicroApps(microConfig);
-    // BUG: 子应用卸载之后的 setTimeout事件需要进行清除
+    // BUG: 子应用卸载之后的 setTimeout事件需要进行清除,多实例处理
     start({singular: true});
 }

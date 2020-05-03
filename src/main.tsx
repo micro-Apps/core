@@ -78,37 +78,36 @@ const useMicroApp = (config: GlobalDataConfig, props: RouteComponentProps) => {
             setNeedRedirect404(true);
         };
         props.history.listen(() => {
-            // BUG: 需要保证页面首先刷新出content container容器，然后调用注册的子应用进行渲染，目前的逻辑有几率触发错误
             setNeedRedirect500(false);
+            setNeedRedirect404(false);
             if (isNeedLoadEmpty(config.menu) && window.location.pathname !== '/404') {
                 setNeedRedirect404(true);
-            } else {
-                setNeedRedirect404(false);
             }
         });
     }, [config]);
 
     useEffect(() => {
-        if (!config) {return};
+        if (!config) return;
         const handleMicroError: OnErrorEventHandlerNonNull = function (event) {
+            // TODO: 针对错误类型做完整处理
+            if (typeof event === 'string') {
+                return;
+            }
+
             if (event.type === 'error') {
-                // BUG: 错误处理太简单，首先需要容器进行拦截
                 setNeedRedirect500(true);
             }
         };
         addGlobalUncaughtErrorHandler(handleMicroError)
-        return () => {
-            removeGlobalUncaughtErrorHandler(handleMicroError);
-        }
+        return () => removeGlobalUncaughtErrorHandler(handleMicroError);
     }, [config])
-
 
     useEffect(() => {
         if (!config) { return }
         setTimeout(() => {
             registeredMicroApps(config.menu)
         }, 0);
-    }, [config])
+    }, [config]);
 
     return {
         needRedirect404,
