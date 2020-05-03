@@ -1,17 +1,16 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import ReactDom from "react-dom";
-import { Skeleton, Spin } from 'antd';
+import { Spin } from 'antd';
 import { HTMLContentRender } from "qiankun";
 
 const ContainerApp: React.FunctionComponent<{
     loading: boolean;
     appContent: string;
-}> = (props) => {
+}> = props => {
     const { loading, appContent } = props;
-
     return (
-        <Spin spinning={loading}>
-            <div style={{minHeight: '200px'}} dangerouslySetInnerHTML={{ __html: appContent }} />
+        <Spin spinning={loading} tip="Loading..." size="large" delay={500}>
+            <div style={{ minHeight: '300px' }} dangerouslySetInnerHTML={{ __html: appContent }} />
         </Spin>
     )
 }
@@ -19,8 +18,5 @@ const ContainerApp: React.FunctionComponent<{
 export const renderMicroApp: HTMLContentRender =  function (params) {
     const { appContent, loading } = params;
     const targetElement: Element = document.getElementById('content');
-
-    if (typeof appContent === 'string' && appContent) {
-        ReactDom.render(<ContainerApp loading={loading} appContent={appContent} />, targetElement);
-    }
+    ReactDom.render(<ContainerApp loading={loading} appContent={appContent} />, targetElement);
 }

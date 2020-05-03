@@ -1,8 +1,8 @@
 import React from 'react';
-import { MicroAppProp } from "qiankun";
+import { RegistrableApp } from "qiankun";
 import { renderToString } from "react-dom/server";
-import { genActiveRule } from "./activeRule";
-import { renderMicroApp } from "./render";
+import { genActiveRule } from "../activeRule";
+import { renderMicroApp } from "../render";
 import NoFoundPage from '@components/NotFoundPage';
 import ErrorPage from '@components/ErrorPage';
 
@@ -23,8 +23,8 @@ const config: PageConfig[] = [{
     router: '/error',
 }];
 
-function getMicroAppConfig(config: PageConfig[]): MicroAppProp[] {
-    const microAppConfig: MicroAppProp[] = config.map(item => ({
+function getMicroAppConfig(config: PageConfig[]): RegistrableApp[] {
+    const microAppConfig: RegistrableApp[] = config.map(item => ({
             name: item.name,
             entry: {
                 styles: [],

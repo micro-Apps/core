@@ -1,10 +1,9 @@
 import { MainMenu, SubMenuOptionConfig } from "@components/GlobalMenu/menuConfig.interface";
-import { MicroAppProp } from 'qiankun';
+import { RegistrableApp } from 'qiankun';
 import { renderMicroApp } from  './render';
 import { genActiveRule } from "./activeRule";
 import { getObjectKey } from '@utils/index'
-import defaultPageConfig from './defaultPageConfig';
-
+import defaultPageConfig from './config/defaultPageConfig';
 
 export function  getMicroAppsConfig(menuConfig: MainMenu): SubMenuOptionConfig[] {
     const { subMenu } = menuConfig;
@@ -12,10 +11,10 @@ export function  getMicroAppsConfig(menuConfig: MainMenu): SubMenuOptionConfig[]
     return result;
 }
 
-export function getRegisterMicroApps(menuConfig: MainMenu): MicroAppProp[] {
+export function getRegisterMicroApps(menuConfig: MainMenu): RegistrableApp[] {
     const config = getMicroAppsConfig(menuConfig);
 
-    const result: MicroAppProp[] = config.map(currentPageConfig => ({
+    const result: RegistrableApp[] = config.map(currentPageConfig => ({
         name: currentPageConfig.name,
         entry: currentPageConfig.entry,
         activeRule: genActiveRule(currentPageConfig.path),
@@ -23,8 +22,4 @@ export function getRegisterMicroApps(menuConfig: MainMenu): MicroAppProp[] {
     }));
 
     return [...result, ...defaultPageConfig];
-}
-
-export function getMenuConfig(menuConfig: MainMenu): MainMenu {
-    return menuConfig;
 }

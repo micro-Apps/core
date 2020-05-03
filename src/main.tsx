@@ -5,7 +5,7 @@ import { SubMenu, SubMenuOption } from "@components/GlobalMenu/menuConfig.interf
 import GlobalHeader from '@components/GlobalHeader';
 import { GlobalDataConfig, ConfigDto, OptionsDto } from './types/global';
 
-import registeredMicroApps, { isNeedLoadEmpty } from './loadMicroApp/registerMicroApps';
+import registeredMicroApps, { isNeedLoadEmpty } from './loadMicroApp';
 import { getConfig } from './service';
 import { RouteComponentProps, Redirect, withRouter } from 'react-router-dom';
 
@@ -72,42 +72,41 @@ const useMicroApp = (config: GlobalDataConfig, props: RouteComponentProps) => {
     const [needRedirect404, setNeedRedirect404] = useState(false);
     const [needRedirect500, setNeedRedirect500] = useState(false);
 
-    useEffect(() => {
-        if (!config) return;
-        if (isNeedLoadEmpty(config.menu)) {
-            setNeedRedirect404(true);
-        };
-        props.history.listen(() => {
-            setNeedRedirect500(false);
-            setNeedRedirect404(false);
-            if (isNeedLoadEmpty(config.menu) && window.location.pathname !== '/404') {
-                setNeedRedirect404(true);
-            }
-        });
-    }, [config]);
+    const registerApp = () => {
+        registeredMicroApps(config.menu);
+    }
 
-    useEffect(() => {
-        if (!config) return;
+    const addErrorHandler = () => {
         const handleMicroError: OnErrorEventHandlerNonNull = function (event) {
-            // TODO: 针对错误类型做完整处理
-            if (typeof event === 'string') {
-                return;
-            }
-
+            console.log('错误打印', event);
+            // TODO: 针对错误类型做完整处理，需要针对错误基类进行判断
+            if (typeof event === 'string') return;
             if (event.type === 'error') {
                 setNeedRedirect500(true);
             }
         };
         addGlobalUncaughtErrorHandler(handleMicroError)
-        return () => removeGlobalUncaughtErrorHandler(handleMicroError);
-    }, [config])
+    };
+
+    const addHistoryHandler = () => {
+        if (isNeedLoadEmpty()) setNeedRedirect404(true);
+        props.history.listen(() => {
+            setNeedRedirect500(false);
+            setNeedRedirect404(false);
+            if (isNeedLoadEmpty() && window.location.pathname !== '/404') {
+                setNeedRedirect404(true);
+            }
+        });
+    }
 
     useEffect(() => {
         if (!config) { return }
-        setTimeout(() => {
-            registeredMicroApps(config.menu)
-        }, 0);
+        registerApp();
+        addErrorHandler();
+        addHistoryHandler();
     }, [config]);
+
+
 
     return {
         needRedirect404,
