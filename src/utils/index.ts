@@ -72,3 +72,20 @@ export function clearAuthority() {
 }
 
 export const getPageQuery = () => parse(window.location.href.split('?')[1]);
+
+
+export class Deferred<T> {
+    // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+    promise: Promise<T>;
+    // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+    resolve!: (value?: T | PromiseLike<T>) => void;
+    // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+    reject!: (reason?: any) => void;
+    // eslint-disable-next-line @typescript-eslint/explicit-member-accessibility
+    constructor() {
+        this.promise = new Promise((resolve, reject) => {
+        this.resolve = resolve;
+        this.reject = reject;
+        });
+    }
+}

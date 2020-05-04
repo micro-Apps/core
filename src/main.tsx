@@ -11,7 +11,7 @@ import { RouteComponentProps, Redirect, withRouter } from 'react-router-dom';
 
 import NotFoundPage from "@components/NotFoundPage";
 import ErrorPage from "@components/ErrorPage";
-import { addGlobalUncaughtErrorHandler, removeGlobalUncaughtErrorHandler } from 'qiankun';
+import { addGlobalUncaughtErrorHandler } from 'qiankun';
 
 function transform(config: ConfigDto):GlobalDataConfig {
     let defaultEntity = '';
