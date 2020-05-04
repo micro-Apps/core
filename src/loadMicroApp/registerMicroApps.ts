@@ -23,7 +23,7 @@ export function isNeedLoadEmpty() {
 export function registerMicroApps (config: MainMenu): void {
     const microConfig = getRegisterMicroApps(config);
     qiankunRegister(microConfig);
-    // BUG: 子应用卸载之后的 setTimeout事件需要进行清除,多实例处理
-    start({singular: true});
+    // BUG: 子应用卸载之后的 setTimeout事件需要进行清除(qiankun中没有处理相关实例),多实例处理
+    start({singular: true, prefetch: true });
     configMenu = config;
 }
